@@ -14,7 +14,7 @@
 %% Inicialización del mundo
 gridsize = 20;
 initsize = 20;
-N = 4;
+N = 8;
 dt = 0.01;
 T = 20;
 
