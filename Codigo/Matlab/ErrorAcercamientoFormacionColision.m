@@ -9,7 +9,7 @@
 %
 % =========================================================================
 
-cantI = 10;                    % cantidad de simulaciones a realizar
+cantI = 100;                    % cantidad de simulaciones a realizar
 EIndividual = zeros(cantI,8);  % energía individual por agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total en cada simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
@@ -56,24 +56,19 @@ for I = 1:cantI
                 dij = 2*d(i,j);        % distancia deseada entre agentes i y j
 
                 % Peso añadido a la ecuación de consenso
-                if(mdist == 0 || mdist >= R)
+                if(mdist == 0)
                     w = 0;
                 else
-                w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+                    switch cambio
+                        case 0
+                            w = (mdist - (2*(r + 1.5)))/(mdist - (r + 1.5))^2;
+                        case 1
+                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+                    end 
                 end
-                % Tensión de aristas entre agentes
-                E = E + w.*dist;
-            end
-
-            % Comparación con la velocidad máxima y ajuste
-%             if(norm(E) > VelMax)    
-%                 ang = atan2(E(2),E(1));
-%                 E(1) = VelMax*cos(ang);
-%                 E(2) = VelMax*sin(ang);
-%             end
-            % Actualización de velocidad
-            V(:,i) = -1*E;
-
+            end 
+            % Tensión de aristas entre agentes
+            E = E + w.*dist;
         end
 
         % Al llegar muy cerca de la posición deseada realizar cambio de control
