@@ -12,7 +12,7 @@ function [mDist] = DistEntreAgentes(X)
 %   mDist = Matriz de adyacencia del grafo formado por la posición actual
 %           de los agentes
 
-    n = size(X,3);          % cantidad de agentes
+    n = size(X,2);          % cantidad de agentes
     mDist = zeros(n,n);     % inicialización de la matriz
     
     for i = 1:n

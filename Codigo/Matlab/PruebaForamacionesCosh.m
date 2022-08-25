@@ -19,7 +19,7 @@ dt = 0.01;
 T = 20;
 
 % Inicialización de la posición de los agentes
-X = initsize*rand(3,N);
+X = initsize*rand(3,N)-initsize/4;
 Xi = X;
 
 % Inicialización de la velocidad de los agentes
@@ -46,7 +46,7 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(2);    % matriz de formación
+d = MatrizF(1);    % matriz de formación
 r = 5;               % radio agentes
 R = 20;              % rango sensor
 VelMax = 10;         % velocidad máxima
@@ -72,16 +72,17 @@ while(t < T)
             if(mdist == 0 || mdist >= R)
                 w = 0;
             else
-                switch cambio
-                    case 0              % inicio: acercar a los agentes sin chocar
-                        w = (mdist - (2*(r + 0.5)))/(mdist - (r + 0.5))^2;
-                    case {1,2}
-                        if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-                            w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-                        else            % collision avoidance & formation control
-                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-                        end
-                end
+                w = (mdist - dij)/mdist;
+%                 switch cambio
+%                     case 0              % inicio: acercar a los agentes sin chocar
+%                         w = (mdist - (2*(r + 0.5)))/(mdist - (r + 0.5))^2;
+%                     case {1,2}
+%                         if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
+%                             w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
+%                         else            % collision avoidance & formation control
+%                             w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+%                         end
+%                 end
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
