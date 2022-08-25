@@ -1,19 +1,13 @@
 % =========================================================================
-% MEDICIÓN DE MÉTRICAS EN LA SIMULACIÓN DEL MODELO DINÁMICO CON CONTROL DE 
-% FORMACIÓN, USANDO COSENO HIPERBÓLICO, Y EVASIÓN DE OBSTÁCULOS INCLUYENDO 
-% LÍMITES DE VELOCIDAD
+%
 % =========================================================================
-% Autor: Andrea Maybell Peña Echeverría
-% Última modificación: 27/08/2019
-% (Métricas MODELO 6)
+% Autor: Kenneth Andree Aldana Corado
+% Última modificación: 08/09/2022
+% Basado en:"Simulación de control de formación sin modificaciones"
+% de Andrea Maybell Peña Echeverría
+% (MODELO 0)
 % =========================================================================
-% El siguiente script implementa la simulación del modelo dinámico de
-% modificación a la ecuación de consenso utilizando evasión de obstáculos y
-% luego una combinación de control de formación con una función de coseno 
-% hiperbólico para grafos mínimamente rígidos y evasión de obstáculos.
-% Además incluye cotas de velocidad para que no se sobrepasen los límites
-% físicos de los agentes cierto número de veces para determinar las métricas de error y cálculos 
-% de energía.
+%
 % =========================================================================
 
 cantI = 50;                    % cantidad de simulaciones a realizar
@@ -67,17 +61,6 @@ for I = 1:cantI
                     w = 0;
                 else
                     w = (mdist - dij)/mdist;
-
-%                     switch cambio
-%                         case 0              % inicio: acercar a los agentes sin chocar
-%                             w = (mdist - (2*(r + 0.5)))/(mdist - (r + 0.5))^2;
-%                         case {1,2}
-%                             if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-%                                 w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-%                             else            % collision avoidance & formation control
-%                                 w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-%                             end
-%                     end
                 end
                 % Tensión de aristas entre agentes
                 E = E + w.*dist;

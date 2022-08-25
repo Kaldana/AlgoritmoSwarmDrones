@@ -1,5 +1,5 @@
 % =========================================================================
-% SIMULACIÓN DEL PROBLEMA DE RENDEZVOUS EN 3D
+% SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
 % Última modificación: 08/09/2022
@@ -8,7 +8,7 @@
 % (MODELO 0)
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación 
-% de consenso para el caso del consenso en un punto.
+% de consenso para el caso del consenso en una formación.
 % =========================================================================
 
 %% Inicialización del mundo
@@ -73,16 +73,6 @@ while(t < T)
                 w = 0;
             else
                 w = (mdist - dij)/mdist;
-%                 switch cambio
-%                     case 0              % inicio: acercar a los agentes sin chocar
-%                         w = (mdist - (2*(r + 0.5)))/(mdist - (r + 0.5))^2;
-%                     case {1,2}
-%                         if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-%                             w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-%                         else            % collision avoidance & formation control
-%                             w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-%                         end
-%                 end
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
