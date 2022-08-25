@@ -35,7 +35,8 @@ ac = 5; %Tamano aristas del cubo
            ac  d2d d2d d3d 0   ac  ac  d2d;
            d2d d3d ac  d2d ac  0   d2d ac;
            d2d ac  d3d d2d ac  d2d 0   ac;
-           d3d d2d d2d ac  d2d   ac  ac  0];
+           d3d d2d d2d ac  d2d ac  ac  0];
+     
 % Celdas con todas las formaciones posibles
 MM = {d1,dr1};
 

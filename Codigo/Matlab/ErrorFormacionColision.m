@@ -2,15 +2,14 @@
 %
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 08/09/2022
-% Basado en:"Simulación de control de formación sin modificaciones"
+% Última modificación: 25/08/2022
+% Basado en:"Simulación de control de formación"
 % de Andrea Maybell Peña Echeverría
-% (MODELO 0)
 % =========================================================================
 %
 % =========================================================================
 
-cantI = 200;                    % cantidad de simulaciones a realizar
+cantI = 10;                    % cantidad de simulaciones a realizar
 EIndividual = zeros(cantI,8);  % energía individual por agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total en cada simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
@@ -60,7 +59,7 @@ for I = 1:cantI
                 if(mdist == 0 || mdist >= R)
                     w = 0;
                 else
-                    w = (mdist - dij)/mdist;
+                w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
                 end
                 % Tensión de aristas entre agentes
                 E = E + w.*dist;

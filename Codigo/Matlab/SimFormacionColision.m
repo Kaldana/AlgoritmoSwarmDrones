@@ -2,12 +2,12 @@
 % SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 08/09/2022
+% Última modificación: 25/08/2022
 % Basado en: "Simulación de control de formación sin modificaciones"
 % de Andrea Maybell Peña Echeverría
-% (MODELO 0)
+% (MODELO 1)
 % =========================================================================
-% El siguiente script implementa la simulación de la ecuación 
+% El siguiente script implementa la simulación de la ecuación modificada
 % de consenso para el caso del consenso en una formación.
 % =========================================================================
 
@@ -47,7 +47,7 @@ zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
 d = MatrizF(2);    % matriz de formación
-r = 5;               % radio agentes
+r = 1;               % radio agentes
 R = 20;              % rango sensor
 VelMax = 10;         % velocidad máxima
 
@@ -72,7 +72,11 @@ while(t < T)
             if(mdist == 0)
                 w = 0;
             else
-                w = (mdist - dij)/mdist;
+                switch cambio
+                    case 0
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2;
+                    case 1
+                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
@@ -83,6 +87,10 @@ while(t < T)
 
     end
 
+    % Al llegar muy cerca de la posición deseada realizar cambio de control
+    if(norm(V) < 0.2)
+        cambio = 1;
+    end
     % Actualización de la posición de los agentes
     X = X + V*dt;
     
