@@ -27,7 +27,7 @@ function [errorR, CantAS] = ErrorIndividual(FAct,FDes,threshold)
     sMT = sum(mT);              % suma de columnas
     
     i = 1;
-    fin = size(sMT,3);          % cantidad de columnas
+    fin = size(sMT,2);          % cantidad de columnas
     while(i < fin)
         if(sMT(i) >= 5)   
         % si se supera el threshold en 5 filas de la misma columna

@@ -16,8 +16,8 @@
 % de energía.
 % =========================================================================
 
-cantI = 100;                    % cantidad de simulaciones a realizar
-EIndividual = zeros(cantI,10);  % energía individual por agente en cada simulación
+cantI = 50;                    % cantidad de simulaciones a realizar
+EIndividual = zeros(cantI,8);  % energía individual por agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total en cada simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
 ExitoTotalF = 0;                % cantidad de formaciones 100% exitosas
@@ -95,9 +95,9 @@ for I = 1:cantI
         end
 
         % Al llegar muy cerca de la posición deseada realizar cambio de control
-        if(norm(V) < 0.2)
-            cambio = cambio + 1;
-        end
+%         if(norm(V) < 0.2)
+%             cambio = cambio + 1;
+%         end
         % Actualización de la posición de los agentes
         X = X + V*dt;
         
