@@ -13,13 +13,13 @@
 
 %% Inicialización del mundo
 gridsize = 20;
-initsize = 20;
+initsize = 15;
 N = 8;
 dt = 0.01;
 T = 20;
 
 % Inicialización de la posición de los agentes
-X = initsize*rand(3,N)-initsize/4;
+X = initsize*rand(3,N);
 Xi = X;
 
 % Inicialización de la velocidad de los agentes
@@ -46,7 +46,7 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(1);    % matriz de formación
+d = MatrizF(2);    % matriz de formación
 r = 5;               % radio agentes
 R = 20;              % rango sensor
 VelMax = 10;         % velocidad máxima
@@ -66,10 +66,10 @@ while(t < T)
         for j = 1:N
             dist = X(:,i)- X(:,j); % vector xi - xj
             mdist = norm(dist);    % norma euclidiana vector xi - xj
-            dij = 2*d(i,j);        % distancia deseada entre agentes i y j
+            dij = d(i,j);        % distancia deseada entre agentes i y j
             
             % Peso añadido a la ecuación de consenso
-            if(mdist == 0 || mdist >= R)
+            if(mdist == 0)
                 w = 0;
             else
                 w = (mdist - dij)/mdist;
@@ -87,13 +87,7 @@ while(t < T)
             % Tensión de aristas entre agentes
             E = E + w.*dist;
         end
-        % Comparación con la velocidad máxima y ajuste
-        if(norm(E) > VelMax)    
-            ang = atan2(E(2),E(1));
-            E(1) = VelMax*cos(ang);
-            E(2) = VelMax*sin(ang);
-        end
-        
+       
         % Actualización de velocidad
         V(:,i) = -1*E;
 
