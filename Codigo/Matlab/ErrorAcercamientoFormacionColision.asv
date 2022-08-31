@@ -9,7 +9,7 @@
 %
 % =========================================================================
 
-cantI = 50;                    % cantidad de simulaciones a realizar
+cantI = 100;                    % cantidad de simulaciones a realizar
 EIndividual = zeros(cantI,8);  % energía individual por agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total en cada simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
@@ -72,11 +72,9 @@ for I = 1:cantI
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
-        end
-        
-        % Actualización de velocidad
-        V(:,i) = -1*E;
-        
+        end 
+            % Tensión de aristas entre agentes
+            E = E + w.*dist;
         end
 
         % Al llegar muy cerca de la posición deseada realizar cambio de control

@@ -48,7 +48,7 @@ zlim([-gridsize, gridsize]);
 %% Selección matriz y parámetros del sistema
 d = MatrizF(2);    % matriz de formación
 r = 1;               % radio agentes
-R = 20;              % rango sensor
+R = 10;              % rango sensor
 VelMax = 10;         % velocidad máxima
 
 %% Inicialización de simulación
@@ -74,9 +74,13 @@ while(t < T)
             else
                 switch cambio
                     case 0
-                        w = (mdist - (2*(r + 1.5)))/(mdist - (r + 1.5))^2;
+                        w = (mdist - (2*(r + 2)))/(mdist - (r + 2))^2;
                     case 1
-                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+                        if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
+                            w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
+                        else            % collision avoidance & formation control
+                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+                        end 
                 end 
             end
             % Tensión de aristas entre agentes
@@ -88,7 +92,7 @@ while(t < T)
 
     end
     % Al llegar muy cerca de la posición deseada realizar cambio de control
-    if(norm(V) < 2)
+    if(norm(V) < 1)
         cambio = 1;
     end
     % Actualización de la posición de los agentes
