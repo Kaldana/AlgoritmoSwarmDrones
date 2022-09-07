@@ -1,4 +1,4 @@
-# AlgoritmoSwarmDrones
+# Algoritmo de coordinación de agentes en 3D
 Repositorio sobre avances para implementación de algoritmos de consenso para la formación de drones. Para este caso se basa en la coordinación de Crazyflies 2.0, se trabaja exclusivamente
 el algoritmo del controlador que será utilizado para cada agente en la plataforma unificada del
 crazyswarm y las cámaras OptiTrack.
