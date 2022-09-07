@@ -1,12 +1,12 @@
-#Código funcional del algoritmo de coordinación de agentes en 3D
+# Código funcional del algoritmo de coordinación de agentes en 3D
 
-##Funciones auxiliares
+## Funciones auxiliares
 - DistEntreAgentes.m : en este archivo se encuentra la función que permite que los agentes sepan la posición relativa de los agentes vecinos.
 - MatriF.m : en este archivo se encuentra la función que detalla las matrices de rigidez utilizadas para las formaciones en 3D.
 - ErrorForm.m : en este archivo se encuentra las funciones para definir el error cuadrático de las formaciones.
 - ErrorIndividual.m : en este archivo se encuentra las operaciones necesarias para saber cuántos agentes cumplieron con su formación y cuál es el error según la posición en la cuál debía estar.
 
-##Códigos principales
+## Códigos principales
 - SimFormacion.m : en este archivo se encuentra el algoritmo de formación en 3 dimensiones para 8 agentes, en dónde se busca que cumplan la formación sin importar si colisionan o no.
 - SimAceramiento.m : en este archivo se encuentra el algoritmo de acercamiento de drones hasta *x* unidades más que su radio.
 - SimAcercamientoFormacionColision.m : en este archivo se encuentra el algoritmo de formación con el cuál se cuida que no hayan colisiones y si se llega al mínimo por cada función, se aplique una función plana para minimizar el uso de energía.
