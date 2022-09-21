@@ -2,21 +2,21 @@
 % SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 25/08/2022
+% Última modificación: 20/09/2022
 % Basado en: "Simulación de control de formación sin modificaciones"
 % de Andrea Maybell Peña Echeverría
 % (MODELO 2)
 % =========================================================================
-% El siguiente script implementa la simulación de la ecuación modificada
-% de consenso para el caso de acercamiento.
+% El siguiente script implementa la simulación de la ecuación de consenso
+% sin modificar.
 % =========================================================================
 
 %% Inicialización del mundo
-gridsize = 20;
-initsize = 15;
+gridsize = 15;
+initsize = 10;
 N = 8;
 dt = 0.01;
-T = 20;
+T = 5;
 
 % Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
@@ -29,8 +29,7 @@ V = zeros(3,N);
 %  Se utiliza distinción de color por agentes
 %    Rojo:    agente 1
 %    Verde:   agente 2
-%    Azul:    agente 3
-%    Negro:   agente 4
+
 color = [255 0 0;
          255 0 0;
          255 0 0;
@@ -45,12 +44,6 @@ xlim([-gridsize, gridsize]);
 ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
-%% Selección matriz y parámetros del sistema
-d = MatrizF(1);    % matriz de formación
-r = 1;               % radio agentes
-R = 20;              % rango sensor
-VelMax = 10;         % velocidad máxima
-
 %% Inicialización de simulación
 t = 0;
 ciclos = 1;
@@ -58,22 +51,14 @@ historico = zeros(100*T,N);
 hX = zeros(100*T,N);
 hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
-cambio = 0;
 
 while(t < T)
     for i = 1:N
         E = 0;
         for j = 1:N
             dist = X(:,i)- X(:,j); % vector xi - xj
-            mdist = norm(dist);    % norma euclidiana vector xi - xj
-            dij = d(i,j);        % distancia deseada entre agentes i y j
             
-            % Peso añadido a la ecuación de consenso
-            if(mdist == 0)
-                w = 0;
-            else
-                w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2;
-            end
+            w = 1;
             % Tensión de aristas entre agentes
             E = E + w.*dist;
         end
@@ -81,11 +66,6 @@ while(t < T)
         % Actualización de velocidad
         V(:,i) = -1*E;
 
-    end
-
-    % Al llegar muy cerca de la posición deseada realizar cambio de control
-    if(norm(V) < 1)
-        cambio = cambio + 1;
     end
     % Actualización de la posición de los agentes
     X = X + V*dt;
@@ -109,7 +89,7 @@ while(t < T)
 end
 
 figure(1);
-plot(0:dt:T-0.01,historico);
+plot(0:dt:T,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])

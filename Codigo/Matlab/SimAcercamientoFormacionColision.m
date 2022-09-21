@@ -2,8 +2,8 @@
 % SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 25/08/2022
-% Basado en: "Simulación de control de formación sin modificaciones"
+% Última modificación: 30/08/2022
+% Basado en: ""
 % de Andrea Maybell Peña Echeverría
 % (MODELO 1)
 % =========================================================================
@@ -12,14 +12,14 @@
 % =========================================================================
 
 %% Inicialización del mundo
-gridsize = 20;
-initsize = 15;
-N = 8;
-dt = 0.01;
-T = 20;
+gridsize = 10; 
+initsize = 10;
+N = 8; %Cantidad de agentes
+dt = 0.01; %Muestreo
+T = 20; %Tiempo de simulación
 
 % Inicialización de la posición de los agentes
-X = initsize*rand(3,N);
+X = initsize*rand(3,N); 
 Xi = X;
 
 % Inicialización de la velocidad de los agentes
@@ -46,7 +46,7 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(2);    % matriz de formación
+d = MatrizF(1);    % matriz de formación
 r = 1;               % radio agentes
 R = 10;              % rango sensor
 VelMax = 10;         % velocidad máxima
@@ -74,7 +74,7 @@ while(t < T)
             else
                 switch cambio
                     case 0
-                        w = (mdist - (2*(r + 2)))/(mdist - (r + 2))^2;
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; %Control de acercamiento
                     case 1
                         if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
                             w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
@@ -91,8 +91,8 @@ while(t < T)
         V(:,i) = -1*E;
 
     end
-    % Al llegar muy cerca de la posición deseada realizar cambio de control
-    if(norm(V) < 1)
+    % Al llegar muy cerca de la posición deseada del controlador, se realiza cambio de control
+    if(norm(V) < 2)
         cambio = 1;
     end
     % Actualización de la posición de los agentes

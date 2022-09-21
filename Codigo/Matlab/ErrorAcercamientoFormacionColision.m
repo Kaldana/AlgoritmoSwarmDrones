@@ -9,7 +9,7 @@
 %
 % =========================================================================
 
-cantI = 50;                    % cantidad de simulaciones a realizar
+cantI = 100;                    % cantidad de simulaciones a realizar
 EIndividual = zeros(cantI,8);  % energía individual por agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total en cada simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
@@ -36,7 +36,7 @@ for I = 1:cantI
     V = zeros(3,N);
 
     %% Selección matriz y parámetros del sistema
-    Form = 2;
+    Form = 1;
     d = MatrizF(Form);    % matriz de formación
     r = 1;               % radio agentes
     R = 10;              % rango sensor

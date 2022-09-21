@@ -12,11 +12,12 @@
 % =========================================================================
 
 %% Inicialización del mundo
+clear all
 gridsize = 20;
 initsize = 15;
 N = 8;
 dt = 0.01;
-T = 20;
+T = 5;
 
 % Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
@@ -105,7 +106,7 @@ while(t < T)
 end
 
 figure(1);
-plot(0:dt:T-0.01,historico);
+plot(0:dt:T,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])
