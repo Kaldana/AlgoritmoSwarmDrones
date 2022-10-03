@@ -2,24 +2,24 @@
 % SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 25/08/2022
-% Basado en: "Simulación de control de formación sin modificaciones"
+% Última modificación: 30/08/2022
+% Basado en: ""
 % de Andrea Maybell Peña Echeverría
-% (MODELO 2)
+% (MODELO 1)
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación modificada
-% de consenso para el caso de acercamiento.
+% de consenso para el caso del consenso en una formación.
 % =========================================================================
 
 %% Inicialización del mundo
-gridsize = 20;
-initsize = 15;
-N = 8;
-dt = 0.01;
-T = 20;
+gridsize = 10; 
+initsize = 10;
+N = 8; %Cantidad de agentes
+dt = 0.01; %Muestreo
+T = 20; %Tiempo de simulación
 
 % Inicialización de la posición de los agentes
-X = initsize*rand(3,N);
+X = initsize*rand(3,N); 
 Xi = X;
 
 % Inicialización de la velocidad de los agentes
@@ -48,8 +48,8 @@ zlim([-gridsize, gridsize]);
 %% Selección matriz y parámetros del sistema
 d = MatrizF(1);    % matriz de formación
 r = 1;               % radio agentes
-R = 20;              % rango sensor
-VelMax = 10;         % velocidad máxima
+R = 10;              % rango sensor
+VelMax = 5;         % velocidad máxima
 
 %% Inicialización de simulación
 t = 0;
@@ -72,20 +72,28 @@ while(t < T)
             if(mdist == 0)
                 w = 0;
             else
-                w = (mdist - (2*(r)))/(mdist - (r))^2;
+                switch cambio
+                    case 0
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; %Control de acercamiento
+                    case 1
+                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2);  
+                end 
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
         end
-       
+        if(norm(E) > VelMax)    
+            E(1) = (E(1)/norm(E))*VelMax;
+            E(2) = (E(2)/norm(E))*VelMax;
+            E(3) = (E(3)/norm(E))*VelMax;
+        end
         % Actualización de velocidad
         V(:,i) = -1*E;
 
     end
-
-    % Al llegar muy cerca de la posición deseada realizar cambio de control
-    if(norm(V) < 1)
-        cambio = cambio + 1;
+    % Al llegar muy cerca de la posición deseada del controlador, se realiza cambio de control
+    if(norm(V) < 2)
+        cambio = 1;
     end
     % Actualización de la posición de los agentes
     X = X + V*dt;

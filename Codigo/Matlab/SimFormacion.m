@@ -114,10 +114,11 @@ ylim([-1,inf])
 % trayectorias
 figure(2);
 hold on;
+grid on;
 plot3(hX,hY,hZ,'--');
-xlabel('Posición en eje X (unidades)');
-ylabel('Posición en eje Y (unidades)');
-zlabel('Posición en eje Z (unidades)');
+xlabel('Posición en eje X (u.a)');
+ylabel('Posición en eje Y (u.a)');
+zlabel('Posición en eje Z (u.a)');
 scatter3(Xi(1,:),Xi(2,:),Xi(3,:),[], 'k');
 scatter3(X(1,:),X(2,:),X(3,:),[], 'k', 'filled');
 hold off;

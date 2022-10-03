@@ -46,7 +46,7 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(1);    % matriz de formación
+d = MatrizF(2);    % matriz de formación
 r = 1;               % radio agentes
 R = 10;              % rango sensor
 VelMax = 10;         % velocidad máxima
@@ -76,11 +76,8 @@ while(t < T)
                     case 0
                         w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; %Control de acercamiento
                     case 1
-                        if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-                            w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-                        else            % collision avoidance & formation control
-                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-                        end 
+                        % collision avoidance & formation control
+                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
                 end 
             end
             % Tensión de aristas entre agentes
@@ -125,10 +122,11 @@ ylim([-1,inf])
 % trayectorias
 figure(2);
 hold on;
+grid on;
 plot3(hX,hY,hZ,'--');
-xlabel('Posición en eje X (unidades)');
-ylabel('Posición en eje Y (unidades)');
-zlabel('Posición en eje Z (unidades)');
+xlabel('Posición en eje X (u.a)');
+ylabel('Posición en eje Y (u.a)');
+zlabel('Posición en eje Z (u.a)');
 scatter3(Xi(1,:),Xi(2,:),Xi(3,:),[], 'k');
 scatter3(X(1,:),X(2,:),X(3,:),[], 'k', 'filled');
 hold off;
