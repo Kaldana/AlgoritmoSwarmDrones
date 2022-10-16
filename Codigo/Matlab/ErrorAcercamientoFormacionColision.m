@@ -30,13 +30,44 @@ for I = 1:cantI
  
     % Inicialización de la posición de los agentes
     X = initsize*rand(3,N);
+%     for s = 1:N
+%     X(3,s) = 0  ;
+%     end
+
+    X(1,1) = 0;
+    X(1,2) = -4;
+    X(1,3) = 0;
+    X(1,4) = -4;
+    X(1,5) = 0;
+    X(1,6) = -4;
+    X(1,7) = 0;
+    X(1,8) = 15;
+    
+    X(2,1) = -4;
+    X(2,2) = -4;
+    X(2,3) = -2;
+    X(2,4) = -2;
+    X(2,5) = 0;
+    X(2,6) = 0;
+    X(2,7) = 2;
+    X(2,8) = 15;
+    
+    X(3,1) = 2;
+    X(3,2) = 2;
+    X(3,3) = 5;
+    X(3,4) = 5;
+    X(3,5) = 8;
+    X(3,6) = 8;
+    X(3,7) = 11;
+    X(3,8) = 15;
+
     Xi = X;
 
     % Inicialización de la velocidad de los agentes
     V = zeros(3,N);
 
     %% Selección matriz y parámetros del sistema
-    Form = 1;
+    Form = 2;
     d = MatrizF(Form);    % matriz de formación
     r = 1;               % radio agentes
     R = 10;              % rango sensor
@@ -46,6 +77,23 @@ for I = 1:cantI
     ciclos = 1;                 % cuenta de la cantidad de ciclos 
     historico = zeros(100*T,N); % histórico de velocidades
     cambio = 0;                 % variable para el cambio de control
+    
+%     while (t < 3)
+%         for i = 1:N
+%             E = 0;
+%             for j = 1:N
+%                 V(3,i) = 1;
+%                 E = -V;
+%                 X = X + V*dt;
+%         historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+% 
+%         % Se actualiza la gráfica, se muestra el movimiento y se incrementa el
+%         % tiempo
+%         t = t + dt;
+%         ciclos = ciclos + 1;
+%             end
+%         end
+%     end
     
     while(t < T)
        for i = 1:N
@@ -63,11 +111,8 @@ for I = 1:cantI
                     case 0
                         w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2;
                     case 1
-                        if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-                            w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-                        else            % collision avoidance & formation control
-                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-                        end 
+                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
+
                 end 
             end
             % Tensión de aristas entre agentes

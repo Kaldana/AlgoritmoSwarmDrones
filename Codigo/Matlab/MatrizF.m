@@ -13,7 +13,7 @@ function [d] = MatrizF(f)
 %   r = nivel de rigidez (de 1 a 8)
 % Salidas
 %   d = matriz de adyacencia de la formación
-acc = 1; %Tamano aristas del cubo
+acc = 2; %Tamano aristas del cubo
 d2c = ((acc)^2 + (acc)^2)^(1/2); %Diagonal en 2D para cubo.
 d3c = ((d2c)^2 + (acc)^2)^(1/2); %Diagonal en 3D para cubo.
 ac = 3;

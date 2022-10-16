@@ -5,7 +5,6 @@
 % Última modificación: 30/08/2022
 % Basado en: ""
 % de Andrea Maybell Peña Echeverría
-% (MODELO 1)
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación modificada
 % de consenso para el caso del consenso en una formación.
@@ -18,8 +17,26 @@ N = 8; %Cantidad de agentes
 dt = 0.01; %Muestreo
 T = 20; %Tiempo de simulación
 
-% Inicialización de la posición de los agentes
-X = initsize*rand(3,N); 
+%% Inicialización de la posición de los agentes
+X = initsize*rand(3,N);
+
+% PRUEBAS EN PLANOS
+
+% Agentes en plano XY
+% for s = 1:N
+%     X(3,s) = 0;
+% end
+
+% Agentes en plano arbitrario
+% X(1,1) = 0; X(1,2) = -4; X(1,3) = 0; X(1,4) = -4; 
+% X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = 15;
+% 
+% X(2,1) = -4;X(2,2) = -4; X(2,3) = -2;X(2,4) = -2;
+% X(2,5) = 0; X(2,6) = 0;  X(2,7) = 2; X(2,8) = 15;
+% 
+% X(3,1) = 2; X(3,2) = 2; X(3,3) = 5; X(3,4) = 5;
+% X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 15;
+
 Xi = X;
 
 % Inicialización de la velocidad de los agentes
@@ -29,8 +46,7 @@ V = zeros(3,N);
 %  Se utiliza distinción de color por agentes
 %    Rojo:    agente 1
 %    Verde:   agente 2
-%    Azul:    agente 3
-%    Negro:   agente 4
+
 color = [255 0 0;
          255 0 0;
          255 0 0;
@@ -46,10 +62,10 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(1);    % matriz de formación
+d = MatrizF(2);    % matriz de formación
 r = 1;               % radio agentes
 R = 10;              % rango sensor
-VelMax = 5;         % velocidad máxima
+VelMax = 2;         % velocidad máxima
 
 %% Inicialización de simulación
 t = 0;
@@ -60,21 +76,53 @@ hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
 cambio = 0;
 
+%% Dinámica inicial de los agentes
+% La idea de este bloque es que los drones se eleven durante 3 unidades de
+% tiempo hacia arriba para que puedan salir del plano y así salir de la
+% singularidad.
+
+while (t < 3)
+    for i = 1:N
+        E = 0;
+        for j = 1:N
+            V(3,i) = 1; %Velocidad de 1 para eje Z
+            E = -V; 
+            X = X + V*dt;
+            for a = 1:N
+                hX(ciclos,a)= X(1,a);
+                hY(ciclos,a)= X(2,a);
+                hZ(ciclos,a)= X(3,a);
+            end
+    % Almacenar los datos de la velocidad durante la simulación.
+    historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+    
+    % Se actualiza la gráfica, se muestra el movimiento y se incrementa el
+    % tiempo
+    agents.XData = X(1,:);
+    agents.YData = X(2,:);
+    agents.ZData = X(3,:);
+    pause(dt);
+    t = t + dt;
+    ciclos = ciclos + 1;
+        end
+    end
+end
+    
 while(t < T)
     for i = 1:N
         E = 0;
         for j = 1:N
-            dist = X(:,i)- X(:,j); % vector xi - xj
-            mdist = norm(dist);    % norma euclidiana vector xi - xj
+            dist = X(:,i)- X(:,j); % vector de distancia entre agente i y j
+            mdist = norm(dist);    % norma euclidiana vector de xi - xj
             dij = d(i,j);        % distancia deseada entre agentes i y j
             
-            % Peso añadido a la ecuación de consenso
+            % Se calcula el peso para la ecuación
             if(mdist == 0)
                 w = 0;
             else
                 switch cambio
                     case 0
-                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; %Control de acercamiento
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; % Control de acercamiento
                     case 1
                         w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2);  
                 end 
@@ -82,6 +130,7 @@ while(t < T)
             % Tensión de aristas entre agentes
             E = E + w.*dist;
         end
+        % Implementación de límite de velocidad
         if(norm(E) > VelMax)    
             E(1) = (E(1)/norm(E))*VelMax;
             E(2) = (E(2)/norm(E))*VelMax;
@@ -130,6 +179,8 @@ plot3(hX,hY,hZ,'--');
 xlabel('Posición en eje X (u.a)');
 ylabel('Posición en eje Y (u.a)');
 zlabel('Posición en eje Z (u.a)');
+scatter3(5,5,5);
+hold on
 scatter3(Xi(1,:),Xi(2,:),Xi(3,:),[], 'k');
 scatter3(X(1,:),X(2,:),X(3,:),[], 'k', 'filled');
 hold off;

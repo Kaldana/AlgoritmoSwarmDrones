@@ -77,7 +77,6 @@ while(t < T)
         hZ(ciclos,a)= X(3,a);
     end
     historico(ciclos,:) = (sum(V.^2,1)).^0.5;
-    
     % Se actualiza la gráfica, se muestra el movimiento y se incrementa el
     % tiempo
     agents.XData = X(1,:);

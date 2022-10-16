@@ -31,12 +31,14 @@ for I = 1:cantI
     % Inicialización de la posición de los agentes
     X = initsize*rand(3,N);
     Xi = X;
-
+    for s = 1:N
+     X(3,s) = 0;
+    end
     % Inicialización de la velocidad de los agentes
     V = zeros(3,N);
 
     %% Selección matriz y parámetros del sistema
-    Form = 1;
+    Form = 2;
     d = MatrizF(Form);    % matriz de formación
     r = 1;               % radio agentes
     R = 10;              % rango sensor
@@ -47,6 +49,20 @@ for I = 1:cantI
     historico = zeros(100*T,N); % histórico de velocidades
     cambio = 0;                 % variable para el cambio de control
     
+    while (t < 3)
+        for i = 1:N
+            E = 0;
+            for j = 1:N
+                V(3,i) = 1;
+                E = -V;
+                X = X + V*dt;
+            end
+        end
+        historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+        t = t + dt;
+        ciclos = ciclos + 1;
+    end
+
     while(t < T)
        for i = 1:N
             E = 0;
@@ -63,11 +79,7 @@ for I = 1:cantI
                     case 0
                         w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2;
                     case 1
-                        if (dij == 0)   % si no hay arista, se usa función "plana" como collision avoidance
-                            w = 0.018*sinh(1.8*mdist-8.4)/mdist; 
-                        else            % collision avoidance & formation control
-                            w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
-                        end 
+                        w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
                 end 
             end
             % Tensión de aristas entre agentes
@@ -82,8 +94,8 @@ for I = 1:cantI
         % Actualización de velocidad
         V(:,i) = -1*E;
         
-        end
-
+       end
+ 
         % Al llegar muy cerca de la posición deseada realizar cambio de control
         if(norm(V) < 2)
             cambio = 1;

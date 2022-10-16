@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
     double forwardDesired = 0;
     double sidewaysDesired = 0;
     double yawDesired = 0;
-
+    printf("%f",motorPower.m1);
     // Control altitude
     int key = wb_keyboard_get_key();
     while (key > 0) {
@@ -174,13 +174,13 @@ int main(int argc, char **argv) {
     desiredState.pitch = forwardDesired;
      pid_attitude_fixed_height_controller(actualState, &desiredState,
     gainsPID, dt, &motorPower);*/
-    
+        
     // Setting motorspeed
     wb_motor_set_velocity(m1_motor, - motorPower.m1);
     wb_motor_set_velocity(m2_motor, motorPower.m2);
     wb_motor_set_velocity(m3_motor, - motorPower.m3);
     wb_motor_set_velocity(m4_motor, motorPower.m4);
-    
+        
     // Save past time for next time step
     past_time = wb_robot_get_time();
     pastXGlobal = xGlobal;
