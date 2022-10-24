@@ -7,7 +7,10 @@
 - **ErrorIndividual.m** : en este archivo se encuentra las operaciones necesarias para saber cuántos agentes cumplieron con su formación y cuál es el error según la posición en la cuál debía estar.
 
 ## Códigos principales
+- **SimConsensoLineal.m** : se realiza el algoritmo para la solución del problema canónico de Rendezvous, en dónde se busca el consenso en un solo punto.
 - **SimFormacion.m** : en este archivo se encuentra el algoritmo de formación en 3 dimensiones para 8 agentes, en dónde se busca que cumplan la formación sin importar si colisionan o no.
 - **SimAceramiento.m** : en este archivo se encuentra el algoritmo de acercamiento de drones hasta *x* unidades más que su radio.
-- **SimAcercamientoFormacionColision.m** : en este archivo se encuentra el algoritmo de formación con el cuál se cuida que no hayan colisiones y si se llega al mínimo por cada función, se aplique una función plana para minimizar el uso de energía.
-- **ErrorAcercamientoFormacionColision.m**: en este archivo se encuentra la programación para definicar cuánta energía utilizaorn los agentes para formarse y si la formación fue fallida, un 70, 80, 90 o 100% exitosa.
+- **SimAcercamientoFormacionColision.m** : en este archivo se encuentra el algoritmo de formación con el cuál se cuida que no hayan colisiones y se aplica formación.
+- **SimAcercamientoFormacionColisionVelLim.m**: en este archivo se encuentra el algoritmo de formación en dónde se evitan colisiones y se aplica la formación con una limitante de velocidad.
+- **ErrorAcercamientoFormacionColision.m**: en este archivo se encuentra la programación para definicar cuánta energía utilizaron los agentes para formarse y si la formación fue fallida o exitosa según el error cuadrático, es exitosa si es menor a 0.001 u.a.
+- **ErrorAcercamientoFormacionColisionVelLim.m**: en este archivo se encuentra la programación para definicar cuánta energía utilizaron los agentes para formarse y si la formación fue fallida o exitosa según el error cuadrático, es exitosa si es menor a 0.001 u.a. Esto para el algoritmo con límite de velocidad.
