@@ -1,33 +1,36 @@
 % =========================================================================
-% SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
+% SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D CON CONTROL DE COLISIONES Y
+% VELOCIDAD
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 30/08/2022
-% Basado en: ""
+% Última modificación: 10/16/2022
+% Basado en: "Simulación de control de formación sin modificaciones"
 % de Andrea Maybell Peña Echeverría
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación modificada
-% de consenso para el caso del consenso en una formación.
+% de consenso para el caso del consenso en una formación con evasión de
+% colisiones y límite de velocidad.
 % =========================================================================
 
 %% Inicialización del mundo
 gridsize = 10; 
 initsize = 10;
-N = 8; %Cantidad de agentes
-dt = 0.01; %Muestreo
-T = 20; %Tiempo de simulación
+N = 8; % Definir la cantidad de agentes
+dt = 0.01; % Tiempo de muestreo
+T = 20; % Tiempo máximo de simulación
 
 %% Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
 
-% PRUEBAS EN PLANOS
+% El siguiente ciclo sirve para colocar a todos los agentes en el plano XY
+% como se realizaría en pruebas físicas, con la idea de realizar la
+% simulación lo más real posible.
+for s = 1:N
+    X(3,s) = 0;
+end
 
-% Agentes en plano XY
-% for s = 1:N
-%     X(3,s) = 0;
-% end
+% AGENTES EN PLANO ARBITRARIO
 
-% Agentes en plano arbitrario
 % X(1,1) = 0; X(1,2) = -4; X(1,3) = 0; X(1,4) = -4; 
 % X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = 15;
 % 
@@ -37,7 +40,7 @@ X = initsize*rand(3,N);
 % X(3,1) = 2; X(3,2) = 2; X(3,3) = 5; X(3,4) = 5;
 % X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 15;
 
-Xi = X;
+Xi = X; % Vector de posición de los agentes
 
 % Inicialización de la velocidad de los agentes
 V = zeros(3,N);
@@ -55,6 +58,7 @@ color = [255 0 0;
          0 255 0;
          0 255 0;
          0 255 0];    
+% Se define la representación gráfica como gráfico de dispersión en 3D
 agents = scatter3(X(1,:),X(2,:),X(3,:),[],color,'filled');
 grid minor;
 xlim([-gridsize, gridsize]);
@@ -64,28 +68,28 @@ zlim([-gridsize, gridsize]);
 %% Selección matriz y parámetros del sistema
 d = MatrizF(2);    % matriz de formación
 r = 1;               % radio agentes
-R = 10;              % rango sensor
 VelMax = 2;         % velocidad máxima
 
 %% Inicialización de simulación
 t = 0;
-ciclos = 1;
-historico = zeros(100*T,N);
-hX = zeros(100*T,N);
+ciclos = 1; % Contador de ciclos para finalizar la formación
+historico = zeros(100*T,N); % Variable que almacena la velocidad de los agentes
+hX = zeros(100*T,N); % Variables para almacenamiento de posición de los agentes
 hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
-cambio = 0;
+cambio = 0; % Variable para el cambio de ecuación de consenso
 
 %% Dinámica inicial de los agentes
-% La idea de este bloque es que los drones se eleven durante 3 unidades de
-% tiempo hacia arriba para que puedan salir del plano y así salir de la
-% singularidad.
+% Este bloque permite que los drones se eleven durante 3 unidades de
+% tiempo hacia arriba para que puedan salir del plano y así salir de con
+% la singularidad. NOTA: Esto esta sección se utiliza únicamente si no
+% se tiene comentado el ciclo for al definir la posición de los agentes. 
 
 while (t < 3)
     for i = 1:N
         E = 0;
         for j = 1:N
-            V(3,i) = 1; %Velocidad de 1 para eje Z
+            V(3,i) = 1; % Velocidad de 1 para eje Z
             E = -V; 
             X = X + V*dt;
             for a = 1:N
@@ -93,17 +97,17 @@ while (t < 3)
                 hY(ciclos,a)= X(2,a);
                 hZ(ciclos,a)= X(3,a);
             end
-    % Almacenar los datos de la velocidad durante la simulación.
-    historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+            % Almacenar los datos de la velocidad durante la simulación.
+            historico(ciclos,:) = (sum(V.^2,1)).^0.5;
     
-    % Se actualiza la gráfica, se muestra el movimiento y se incrementa el
-    % tiempo
-    agents.XData = X(1,:);
-    agents.YData = X(2,:);
-    agents.ZData = X(3,:);
-    pause(dt);
-    t = t + dt;
-    ciclos = ciclos + 1;
+            % Se actualiza la gráfica, se muestra el movimiento y se
+            % incrementa el tiempo.
+            agents.XData = X(1,:);
+            agents.YData = X(2,:);
+            agents.ZData = X(3,:);
+            pause(dt);
+            t = t + dt;
+            ciclos = ciclos + 1;
         end
     end
 end
@@ -122,8 +126,11 @@ while(t < T)
             else
                 switch cambio
                     case 0
-                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; % Control de acercamiento
+                        % Ecuación de consenso modificada para acercamiento
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; 
                     case 1
+                        % Ecuación de consenso modificada para evitar
+                        % colisiones y formarse
                         w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2);  
                 end 
             end
@@ -165,13 +172,15 @@ while(t < T)
     ciclos = ciclos + 1;
 end
 
+% Grafico de la norma de la velocidad de los agentes
 figure(1);
 plot(0:dt:T-0.01,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])
 
-% trayectorias
+% Grafico de posición inicial y final de los agentes, adicionalmente se
+% superpone su trayectoria.
 figure(2);
 hold on;
 grid on;

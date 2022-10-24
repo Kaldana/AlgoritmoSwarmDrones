@@ -2,22 +2,20 @@
 % SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 08/09/2022
+% Última modificación: 10/15/2022
 % Basado en: "Simulación de control de formación sin modificaciones"
 % de Andrea Maybell Peña Echeverría
-% (MODELO 0)
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación 
 % de consenso para el caso del consenso en una formación.
 % =========================================================================
 
 %% Inicialización del mundo
-clear all
 gridsize = 20;
 initsize = 15;
-N = 8;
-dt = 0.01;
-T = 5;
+N = 8; % Definir la cantidad de agentes
+dt = 0.01; % Tiempo de muestreo
+T = 5; % Tiempo máximo de simulación
 
 % Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
@@ -30,8 +28,7 @@ V = zeros(3,N);
 %  Se utiliza distinción de color por agentes
 %    Rojo:    agente 1
 %    Verde:   agente 2
-%    Azul:    agente 3
-%    Negro:   agente 4
+
 color = [255 0 0;
          255 0 0;
          255 0 0;
@@ -40,6 +37,7 @@ color = [255 0 0;
          0 255 0;
          0 255 0;
          0 255 0];    
+% Se define la representación gráfica como gráfico de dispersión en 3D
 agents = scatter3(X(1,:),X(2,:),X(3,:),[],color,'filled');
 grid minor;
 xlim([-gridsize, gridsize]);
@@ -49,31 +47,28 @@ zlim([-gridsize, gridsize]);
 %% Selección matriz y parámetros del sistema
 d = MatrizF(2);    % matriz de formación
 r = 5;               % radio agentes
-R = 20;              % rango sensor
-VelMax = 10;         % velocidad máxima
 
 %% Inicialización de simulación
 t = 0;
-ciclos = 1;
-historico = zeros(100*T,N);
-hX = zeros(100*T,N);
+ciclos = 1; % Contador de ciclos para finalizar la formación
+historico = zeros(100*T,N); % Variable que almacena la velocidad de los agentes
+hX = zeros(100*T,N); % Variables para almacenamiento de posición de los agentes
 hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
-cambio = 0;
 
 while(t < T)
     for i = 1:N
         E = 0;
         for j = 1:N
-            dist = X(:,i)- X(:,j); % vector xi - xj
+            dist = X(:,i)- X(:,j); % vector de distancia entre agente i y j
             mdist = norm(dist);    % norma euclidiana vector xi - xj
             dij = d(i,j);        % distancia deseada entre agentes i y j
             
-            % Peso añadido a la ecuación de consenso
+            % Se calcula el peso para la ecuación
             if(mdist == 0)
                 w = 0;
             else
-                w = (mdist - dij)/mdist;
+                w = (mdist - dij)/mdist; % Ecuación del consenso con pesos para formación
             end
             % Tensión de aristas entre agentes
             E = E + w.*dist;
@@ -105,13 +100,15 @@ while(t < T)
     ciclos = ciclos + 1;
 end
 
+% Grafico de la norma de la velocidad de los agentes
 figure(1);
 plot(0:dt:T,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])
 
-% trayectorias
+% Grafico de posición inicial y final de los agentes, adicionalmente se
+% superpone su trayectoria.
 figure(2);
 hold on;
 grid on;

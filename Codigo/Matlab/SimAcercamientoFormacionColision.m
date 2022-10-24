@@ -1,26 +1,26 @@
 % =========================================================================
-% SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D
+% SIMULACIÓN DEL PROBLEMA DE FORMACIÓN EN 3D CON CONTROL DE COLISIONES
 % =========================================================================
 % Autor: Kenneth Andree Aldana Corado
-% Última modificación: 30/08/2022
-% Basado en: ""
+% Última modificación: 10/15/2022
+% Basado en: "Simulación de control de formación sin modificaciones"
 % de Andrea Maybell Peña Echeverría
-% (MODELO 1)
 % =========================================================================
 % El siguiente script implementa la simulación de la ecuación modificada
-% de consenso para el caso del consenso en una formación.
+% de consenso para el caso del consenso en una formación con evasión de
+% colisiones.
 % =========================================================================
 
 %% Inicialización del mundo
-gridsize = 10; 
+gridsize = 10; % tamaño del espacio tridimensional
 initsize = 10;
-N = 8; %Cantidad de agentes
-dt = 0.01; %Muestreo
-T = 20; %Tiempo de simulación
+N = 8; % Definir la cantidad de agentes
+dt = 0.01; % Tiempo de muestreo
+T = 20; % Tiempo máximo de simulación
 
 % Inicialización de la posición de los agentes
 X = initsize*rand(3,N); 
-Xi = X;
+Xi = X; % Vector de posición de los agentes
 
 % Inicialización de la velocidad de los agentes
 V = zeros(3,N);
@@ -29,8 +29,7 @@ V = zeros(3,N);
 %  Se utiliza distinción de color por agentes
 %    Rojo:    agente 1
 %    Verde:   agente 2
-%    Azul:    agente 3
-%    Negro:   agente 4
+
 color = [255 0 0;
          255 0 0;
          255 0 0;
@@ -39,6 +38,7 @@ color = [255 0 0;
          0 255 0;
          0 255 0;
          0 255 0];    
+% Se define la representación gráfica como gráfico de dispersión en 3D
 agents = scatter3(X(1,:),X(2,:),X(3,:),[],color,'filled');
 grid minor;
 xlim([-gridsize, gridsize]);
@@ -48,35 +48,35 @@ zlim([-gridsize, gridsize]);
 %% Selección matriz y parámetros del sistema
 d = MatrizF(2);    % matriz de formación
 r = 1;               % radio agentes
-R = 10;              % rango sensor
-VelMax = 10;         % velocidad máxima
 
 %% Inicialización de simulación
 t = 0;
-ciclos = 1;
-historico = zeros(100*T,N);
-hX = zeros(100*T,N);
+ciclos = 1; % Contador de ciclos para finalizar la formación
+historico = zeros(100*T,N); % Variable que almacena la velocidad de los agentes
+hX = zeros(100*T,N); % Variables para almacenamiento de posición de los agentes
 hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
-cambio = 0;
+cambio = 0; % Variable para el cambio de ecuación de consenso
 
 while(t < T)
     for i = 1:N
         E = 0;
         for j = 1:N
-            dist = X(:,i)- X(:,j); % vector xi - xj
+            dist = X(:,i)- X(:,j); % vector de distancia entre agente i y j 
             mdist = norm(dist);    % norma euclidiana vector xi - xj
             dij = d(i,j);        % distancia deseada entre agentes i y j
             
-            % Peso añadido a la ecuación de consenso
+            % Se calcula el peso para la ecuación
             if(mdist == 0)
                 w = 0;
             else
                 switch cambio
                     case 0
-                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; %Control de acercamiento
+                        % Ecuación de consenso modificada para acercamiento
+                        w = (mdist - (2*(r + 1)))/(mdist - (r + 1))^2; 
                     case 1
-                        % collision avoidance & formation control
+                        % Ecuación de consenso modificada para evitar
+                        % colisiones y formarse
                         w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)^2)/(mdist*(mdist - r)^2); 
                 end 
             end
@@ -113,13 +113,15 @@ while(t < T)
     ciclos = ciclos + 1;
 end
 
+% Grafico de la norma de la velocidad de los agentes
 figure(1);
 plot(0:dt:T-0.01,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])
 
-% trayectorias
+% Grafico de posición inicial y final de los agentes, adicionalmente se
+% superpone su trayectoria.
 figure(2);
 hold on;
 grid on;

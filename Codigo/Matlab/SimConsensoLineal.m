@@ -14,13 +14,13 @@
 %% Inicialización del mundo
 gridsize = 15;
 initsize = 10;
-N = 8;
-dt = 0.01;
-T = 5;
+N = 8; % Definir la cantidad de agentes
+dt = 0.01; % Tiempo de muestreo
+T = 5; % Tiempo máximo de simulación
 
 % Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
-Xi = X;
+Xi = X; % Vector de posición de los agentes
 
 % Inicialización de la velocidad de los agentes
 V = zeros(3,N);
@@ -37,7 +37,8 @@ color = [255 0 0;
          0 255 0;
          0 255 0;
          0 255 0;
-         0 255 0];    
+         0 255 0];   
+% Se define la representación gráfica como gráfico de dispersión en 3D
 agents = scatter3(X(1,:),X(2,:),X(3,:),[],color,'filled');
 grid minor;
 xlim([-gridsize, gridsize]);
@@ -46,9 +47,9 @@ zlim([-gridsize, gridsize]);
 
 %% Inicialización de simulación
 t = 0;
-ciclos = 1;
-historico = zeros(100*T,N);
-hX = zeros(100*T,N);
+ciclos = 1; % Contador de ciclos para finalizar la formación
+historico = zeros(100*T,N); % Variable que almacena la velocidad de los agentes
+hX = zeros(100*T,N); % Variables para almacenamiento de posición de los agentes
 hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
 
@@ -56,7 +57,7 @@ while(t < T)
     for i = 1:N
         E = 0;
         for j = 1:N
-            dist = X(:,i)- X(:,j); % vector xi - xj
+            dist = X(:,i)- X(:,j); % vector de distancia entre agente i y j
             
             w = 1;
             % Tensión de aristas entre agentes
@@ -87,13 +88,15 @@ while(t < T)
     ciclos = ciclos + 1;
 end
 
+% Grafico de la norma de la velocidad de los agentes
 figure(1);
 plot(0:dt:T,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (u.a/segundo)');
 ylim([-1,inf])
 
-% trayectorias
+% Grafico de posición inicial y final de los agentes, adicionalmente se
+% superpone su trayectoria.
 figure(2);
 hold on;
 grid on;
