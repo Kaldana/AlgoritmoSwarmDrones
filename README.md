@@ -4,8 +4,7 @@ el algoritmo del controlador que será utilizado para cada agente en la platafor
 crazyswarm y las cámaras OptiTrack.
 
 En esta página principal podrán acceder a:
-- MATERIAL: en esta carpeta está todo el material de apoyo  y referencias que utilicé para poder estudiar 
-sobre  enjambres de robots, algoritmos de consenso, grafos y demás.
+- DOCUMENTOS: en esta carpeta se encuentra el protocolo de graduación presentado para la aceptación del trabajo de graduación y las entregas del trabajo de gracuación durante el semestre.
 - CÓDIGO: en esta carpeta se encuentra el código principal con las respectivas funciones auxiliares para 
 poder ver el algoritmo con el cuál los agentes se coordinan en tres dimensiones.
 - WEBOTS: en esta carpeta se encuentra la última actualización de bitcraze sobre una simulación del 
