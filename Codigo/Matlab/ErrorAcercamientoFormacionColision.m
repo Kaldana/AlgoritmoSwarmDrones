@@ -122,12 +122,6 @@ for I = 1:cantI
     if(errorR < 0.05)
         if(cantAS == N)                     % formación 100% exitosa
             ExitoTotalF = ExitoTotalF + 1;
-        elseif (cantAS == round(N*0.9))     % formación 90% exitosa
-            Exito9F = Exito9F + 1;
-        elseif (cantAS == round(N*0.8))     % formación 80% exitosa     
-            Exito8F = Exito8F + 1;
-        elseif (cantAS == round(N*0.7))     % formacion 70% exitosa
-            Exito7F = Exito7F + 1;
         else                                % formación fallida
             Fail = Fail +1;
         end
@@ -135,7 +129,7 @@ for I = 1:cantI
         Fail = Fail + 1;
     end
         
-    VResults = [ExitoTotalF, Exito9F, Exito8F, Exito7F, Fail];
+    VResults = [ExitoTotalF, Fail];
 end
 
 % Guardar resultados como resulte más conveniente

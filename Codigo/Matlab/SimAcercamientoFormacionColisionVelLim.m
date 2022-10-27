@@ -17,7 +17,7 @@ gridsize = 10;
 initsize = 10;
 N = 8; % Definir la cantidad de agentes
 dt = 0.01; % Tiempo de muestreo
-T = 20; % Tiempo máximo de simulación
+T = 10; % Tiempo máximo de simulación
 
 %% Inicialización de la posición de los agentes
 X = initsize*rand(3,N);
@@ -32,13 +32,13 @@ end
 % AGENTES EN PLANO ARBITRARIO
 
 % X(1,1) = 0; X(1,2) = -4; X(1,3) = 0; X(1,4) = -4; 
-% X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = 15;
+% X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = -4;
 % 
 % X(2,1) = -4;X(2,2) = -4; X(2,3) = -2;X(2,4) = -2;
-% X(2,5) = 0; X(2,6) = 0;  X(2,7) = 2; X(2,8) = 15;
+% X(2,5) = 0; X(2,6) = 0;  X(2,7) = 2; X(2,8) = 2;
 % 
 % X(3,1) = 2; X(3,2) = 2; X(3,3) = 5; X(3,4) = 5;
-% X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 15;
+% X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 11;
 
 Xi = X; % Vector de posición de los agentes
 
@@ -174,7 +174,7 @@ end
 
 % Grafico de la norma de la velocidad de los agentes
 figure(1);
-plot(0:dt:T-0.01,historico);
+plot(0:dt:T,historico);
 xlabel('Tiempo (segundos)');
 ylabel('Velocidad (unidades/segundo)');
 ylim([-1,inf])
@@ -188,7 +188,7 @@ plot3(hX,hY,hZ,'--');
 xlabel('Posición en eje X (u.a)');
 ylabel('Posición en eje Y (u.a)');
 zlabel('Posición en eje Z (u.a)');
-scatter3(5,5,5);
+% scatter3(5,5,5);
 hold on
 scatter3(Xi(1,:),Xi(2,:),Xi(3,:),[], 'k');
 scatter3(X(1,:),X(2,:),X(3,:),[], 'k', 'filled');

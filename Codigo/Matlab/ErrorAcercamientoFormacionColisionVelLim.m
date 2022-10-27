@@ -38,20 +38,20 @@ for I = 1:cantI
     % XY como se realizaría en pruebas físicas, con la idea de realizar la
     % simulación lo más real posible.
     
-    for s = 1:N
-    X(3,s) = 0  ;
-    end
+%     for s = 1:N
+%     X(3,s) = 0  ;
+%     end
 
     % AGENTES EN PLANO ARBITRARIO
     
-    % X(1,1) = 0; X(1,2) = -4; X(1,3) = 0; X(1,4) = -4; 
-    % X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = 15;
-    % 
-    % X(2,1) = -4;X(2,2) = -4; X(2,3) = -2;X(2,4) = -2;
-    % X(2,5) = 0; X(2,6) = 0;  X(2,7) = 2; X(2,8) = 15;
-    % 
-    % X(3,1) = 2; X(3,2) = 2; X(3,3) = 5; X(3,4) = 5;
-    % X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 15;
+    X(1,1) = 0; X(1,2) = -4; X(1,3) = 0; X(1,4) = -4; 
+    X(1,5) = 0; X(1,6) = -4; X(1,7) = 0; X(1,8) = -4;
+    
+    X(2,1) = -4;X(2,2) = -4; X(2,3) = -2;X(2,4) = -2;
+    X(2,5) = 0; X(2,6) = 0;  X(2,7) = 2; X(2,8) = 2;
+    
+    X(3,1) = 2; X(3,2) = 2; X(3,3) = 5; X(3,4) = 5;
+    X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 11;
 
     Xi = X; % Vector de posición de los agentes
 
@@ -59,7 +59,7 @@ for I = 1:cantI
     V = zeros(3,N);
 
     %% Selección matriz y parámetros del sistema
-    Formacion = 2;
+    Formacion = 1;
     d = MatrizF(Formacion); % Selección de formación
     r = 1;                  % Radio físico de los agentes
     VelMax = 10;            % Límite de velocidad
@@ -76,20 +76,20 @@ for I = 1:cantI
     % una singularidad. NOTA: Esto esta sección se utiliza únicamente si no
     % se comenta el ciclo "for" al definir la posición de los agentes. 
 
-    while (t < 3)
-        for i = 1:N
-            E = 0;
-            for j = 1:N
-                V(3,i) = 1; % Velocidad de 1 para eje Z
-                E = -V;
-                X = X + V*dt;
-                % Almacenar los datos de la velocidad durante la simulación
-                historico(ciclos,:) = (sum(V.^2,1)).^0.5;
-                t = t + dt;
-                ciclos = ciclos + 1;
-            end
-        end
-    end
+%     while (t < 3)
+%         for i = 1:N
+%             E = 0;
+%             for j = 1:N
+%                 V(3,i) = 1; % Velocidad de 1 para eje Z
+%                 E = -V;
+%                 X = X + V*dt;
+%                 % Almacenar los datos de la velocidad durante la simulación
+%                 historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+%                 t = t + dt;
+%                 ciclos = ciclos + 1;
+%             end
+%         end
+%     end
 
     while(t < T)
        for i = 1:N
@@ -170,12 +170,6 @@ for I = 1:cantI
     if(errorR < 0.05)
         if(cantAS == N)                     % formación 100% exitosa
             ExitoTotalF = ExitoTotalF + 1;
-        elseif (cantAS == round(N*0.9))     % formación 90% exitosa
-            Exito9F = Exito9F + 1;
-        elseif (cantAS == round(N*0.8))     % formación 80% exitosa     
-            Exito8F = Exito8F + 1;
-        elseif (cantAS == round(N*0.7))     % formacion 70% exitosa
-            Exito7F = Exito7F + 1;
         else                                % formación fallida
             Fail = Fail +1;
         end
@@ -183,7 +177,7 @@ for I = 1:cantI
         Fail = Fail + 1;
     end
         
-    VResults = [ExitoTotalF, Exito9F, Exito8F, Exito7F, Fail];
+    VResults = [ExitoTotalF, Fail];
 end
 
 % Guardar resultados como resulte más conveniente
