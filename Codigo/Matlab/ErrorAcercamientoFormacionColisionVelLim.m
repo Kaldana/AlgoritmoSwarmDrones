@@ -147,7 +147,8 @@ for I = 1:cantI
     errorF = ErrorForm(mDistF,MatrizF(Formacion)); % error de formación simulación I
     energiaI = sum(historico.*dt,1);            % energía individual simulación I
     energiaT = sum(energiaI,2);                 % energía total simulación I
-    
+    ETotal(:,I)= energiaT;
+
     %% Porcentaje éxito formación
     % Una formación se considera exitosa con un error cuadrático medio 
     % menor a 0.05

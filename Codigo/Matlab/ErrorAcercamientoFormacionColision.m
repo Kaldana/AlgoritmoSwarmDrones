@@ -17,9 +17,6 @@ EIndividual = zeros(cantI,8);   % energía del agente en cada simulación
 ETotal = zeros(1,cantI);        % energía total de los agentes por simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
 ExitoTotalF = 0;                % cantidad de formaciones 100% exitosas
-Exito9F = 0;                    % cantidad de formaciones 90% exitosas
-Exito8F = 0;                    % cantidad de formaciones 80% exitosas
-Exito7F = 0;                    % cantidad de formaciones 70% exitosas
 Fail = 0;                       % cantidad de formaciones fallidas
 
 for I = 1:cantI
@@ -99,7 +96,7 @@ for I = 1:cantI
     errorF = ErrorForm(mDistF,MatrizF(Formacion)); % error de formación simulación I
     energiaI = sum(historico.*dt,1);            % energía individual simulación I
     energiaT = sum(energiaI,2);                 % energía total simulación I
-    
+
     %% Porcentaje éxito formación
     % Una formación se considera exitosa con un error cuadrático medio 
     % menor a 0.05
