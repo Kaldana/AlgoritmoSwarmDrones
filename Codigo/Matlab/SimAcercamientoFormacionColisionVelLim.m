@@ -90,7 +90,7 @@ hY = zeros(100*T,N);
 hZ = zeros(100*T,N);
 cambio = 0; % Variable para el cambio de ecuación de consenso
 
-%% Dinámica inicial de los agentes
+%% Dinámica pre formación para agentes en planos XZ.
 % Este bloque permite que los drones se eleven durante 3 unidades de
 % tiempo hacia arriba para que puedan salir del plano y así salir de con
 % la singularidad. NOTA: Esto esta sección se utiliza únicamente si no
@@ -122,7 +122,8 @@ cambio = 0; % Variable para el cambio de ecuación de consenso
 %         end
 %     end
 % end
-    
+
+%% Dinámica de formación de agentes
 while(t < T)
     for i = 1:N
         E = 0;
