@@ -38,9 +38,9 @@ for I = 1:cantI
     % XY como se realizaría en pruebas físicas, con la idea de realizar la
     % simulación lo más real posible.
     
-%     for s = 1:N
-%     X(3,s) = 0  ;
-%     end
+    for s = 1:N
+    X(3,s) = 0  ;
+    end
 
     % AGENTES EN PLANO ARBITRARIO
     
@@ -55,16 +55,16 @@ for I = 1:cantI
 %     X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 11;
     
     %Plano 2
-    X(1,1) = -2; X(1,2) = -2; X(1,3) = 2; X(1,4) = 2; 
-    X(1,5) = -2; X(1,6) = -2; X(1,7) = 2; X(1,8) = 2;
-    
-    X(2,1) = 0;  X(2,2) = 1;  X(2,3) = 2; X(2,4) = 3;
-    X(2,5) = 0;  X(2,6) = 1;  X(2,7) = 2; X(2,8) = 3;
-    
-    X(3,1) = 0;  X(3,2) = 1; X(3,3) = 2; X(3,4) = 3;
-    X(3,5) = 0;  X(3,6) = 1; X(3,7) = 2; X(3,8) = 3;
-
-    Xi = X; % Vector de posición de los agentes
+%     X(1,1) = -2; X(1,2) = -2; X(1,3) = 2; X(1,4) = 2; 
+%     X(1,5) = -2; X(1,6) = -2; X(1,7) = 2; X(1,8) = 2;
+%     
+%     X(2,1) = 0;  X(2,2) = 1;  X(2,3) = 2; X(2,4) = 3;
+%     X(2,5) = 0;  X(2,6) = 1;  X(2,7) = 2; X(2,8) = 3;
+%     
+%     X(3,1) = 0;  X(3,2) = 1; X(3,3) = 2; X(3,4) = 3;
+%     X(3,5) = 0;  X(3,6) = 1; X(3,7) = 2; X(3,8) = 3;
+% 
+%     Xi = X; % Vector de posición de los agentes
 
     % Inicialización de la velocidad de los agentes
     V = zeros(3,N);
@@ -87,20 +87,20 @@ for I = 1:cantI
     % una singularidad. NOTA: Esto esta sección se utiliza únicamente si no
     % se comenta el ciclo "for" al definir la posición de los agentes. 
 
-%     while (t < 3)
-%         for i = 1:N
-%             E = 0;
-%             for j = 1:N
-%                 V(3,i) = 1; % Velocidad de 1 para eje Z
-%                 E = -V;
-%                 X = X + V*dt;
-%                 % Almacenar los datos de la velocidad durante la simulación
-%                 historico(ciclos,:) = (sum(V.^2,1)).^0.5;
-%                 t = t + dt;
-%                 ciclos = ciclos + 1;
-%             end
-%         end
-%     end
+    while (t < 3)
+        for i = 1:N
+            E = 0;
+            for j = 1:N
+                V(3,i) = 1; % Velocidad de 1 para eje Z
+                E = -V;
+                X = X + V*dt;
+                % Almacenar los datos de la velocidad durante la simulación
+                historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+                t = t + dt;
+                ciclos = ciclos + 1;
+            end
+        end
+    end
 
     while(t < T)
        for i = 1:N

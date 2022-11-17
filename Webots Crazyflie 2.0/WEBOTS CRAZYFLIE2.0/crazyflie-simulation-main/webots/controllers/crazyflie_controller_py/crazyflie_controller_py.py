@@ -26,7 +26,7 @@ from controller import DistanceSensor
 from math import cos, sin
 
 import sys
-sys.path.append('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/controllers')
+sys.path.append('../../../controllers/')
 from  pid_controller import init_pid_attitude_fixed_height_controller, pid_velocity_fixed_height_controller
 from pid_controller import MotorPower_t, ActualState_t, GainsPID_t, DesiredState_t
 robot = Robot()
