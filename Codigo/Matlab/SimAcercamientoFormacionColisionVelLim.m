@@ -25,9 +25,9 @@ X = initsize*rand(3,N);
 % El siguiente ciclo sirve para colocar a todos los agentes en el plano XY
 % como se realizaría en pruebas físicas, con la idea de realizar la
 % simulación lo más real posible.
-% for s = 1:N
-%     X(3,s) = 0;
-% end
+for s = 1:N
+    X(3,s) = 0;
+end
 
 % AGENTES EN PLANO ARBITRARIO
 
@@ -42,14 +42,14 @@ X = initsize*rand(3,N);
 %     X(3,5) = 8; X(3,6) = 8; X(3,7) = 11; X(3,8) = 11;
     
 %Plano 2
-X(1,1) = 3; X(1,2) = 1; X(1,3) = 2; X(1,4) = 3; 
-X(1,5) = 0;  X(1,6) = 1;  X(1,7) = 2;  X(1,8) = 0;
-
-X(2,1) = 3;  X(2,2) = 1;  X(2,3) = 2; X(2,4) = 3;
-X(2,5) = 0;  X(2,6) = 1;  X(2,7) = 2; X(2,8) = 0;
-
-X(3,1) = 2;  X(3,2) = -2; X(3,3) = -2; X(3,4) = -2;
-X(3,5) = 2;  X(3,6) = 2; X(3,7) = 2; X(3,8) = -2;
+% X(1,1) = 3; X(1,2) = 1; X(1,3) = 2; X(1,4) = 3; 
+% X(1,5) = 0;  X(1,6) = 1;  X(1,7) = 2;  X(1,8) = 0;
+% 
+% X(2,1) = 3;  X(2,2) = 1;  X(2,3) = 2; X(2,4) = 3;
+% X(2,5) = 0;  X(2,6) = 1;  X(2,7) = 2; X(2,8) = 0;
+% 
+% X(3,1) = 2;  X(3,2) = -2; X(3,3) = -2; X(3,4) = -2;
+% X(3,5) = 2;  X(3,6) = 2; X(3,7) = 2; X(3,8) = -2;
 
 Xi = X; % Vector de posición de los agentes
 
@@ -96,32 +96,32 @@ cambio = 0; % Variable para el cambio de ecuación de consenso
 % la singularidad. NOTA: Esto esta sección se utiliza únicamente si no
 % se tiene comentado el ciclo for al definir la posición de los agentes. 
 
-% while (t < 3)
-%     for i = 1:N
-%         E = 0;
-%         for j = 1:N
-%             V(3,i) = 1; % Velocidad de 1 para eje Z
-%             E = -V; 
-%             X = X + V*dt;
-%             for a = 1:N
-%                 hX(ciclos,a)= X(1,a);
-%                 hY(ciclos,a)= X(2,a);
-%                 hZ(ciclos,a)= X(3,a);
-%             end
-%             % Almacenar los datos de la velocidad durante la simulación.
-%             historico(ciclos,:) = (sum(V.^2,1)).^0.5;
-%     
-%             % Se actualiza la gráfica, se muestra el movimiento y se
-%             % incrementa el tiempo.
-%             agents.XData = X(1,:);
-%             agents.YData = X(2,:);
-%             agents.ZData = X(3,:);
-%             pause(dt);
-%             t = t + dt;
-%             ciclos = ciclos + 1;
-%         end
-%     end
-% end
+while (t < 3)
+    for i = 1:N
+        E = 0;
+        for j = 1:N
+            V(3,i) = 1; % Velocidad de 1 para eje Z
+            E = -V; 
+            X = X + V*dt;
+            for a = 1:N
+                hX(ciclos,a)= X(1,a);
+                hY(ciclos,a)= X(2,a);
+                hZ(ciclos,a)= X(3,a);
+            end
+            % Almacenar los datos de la velocidad durante la simulación.
+            historico(ciclos,:) = (sum(V.^2,1)).^0.5;
+    
+            % Se actualiza la gráfica, se muestra el movimiento y se
+            % incrementa el tiempo.
+            agents.XData = X(1,:);
+            agents.YData = X(2,:);
+            agents.ZData = X(3,:);
+            pause(dt);
+            t = t + dt;
+            ciclos = ciclos + 1;
+        end
+    end
+end
 
 %% Dinámica de formación de agentes
 while(t < T)

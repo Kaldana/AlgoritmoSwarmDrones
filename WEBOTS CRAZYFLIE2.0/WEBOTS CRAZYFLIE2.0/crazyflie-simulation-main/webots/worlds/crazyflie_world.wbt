@@ -1,10 +1,18 @@
-#VRML_SIM R2022a utf8
+#VRML_SIM R2022b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/traffic/protos/Pole.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.04121667125195567 0.7025223660587053 0.7104671077524889 0.5978820490142996
-  position -3.121692155976593 -0.7087394785349075 2.6012252938430582
-  follow "Crazyflie"
+  orientation -0.2336370058449474 -0.5063926573849749 0.8300483275366511 5.2685515679184
+  position -1.7754011115585844 4.866669397954712 3.1182146486323434
 }
 TexturedBackground {
 }
@@ -32,14 +40,6 @@ Pole {
   translation 1.26 2.9 0
   name "pole(5)"
 }
-ComputerMouse {
-  translation -0.58 0.88 0.5
-}
-Table {
-  translation -0.58 1.2 0
-  name "table(1)"
-  size 0.5 1 0.5
-}
 Wall {
   translation 1.28 2.77 0
   rotation 0 0 -0.9999999999999999 1.5707953071795862
@@ -61,15 +61,23 @@ Table {
   translation 1.29 1.27 0
   size 3 2.9 0.2
 }
-Ball {
-  translation 2.56 0 0.45
-  rotation 0 1 0 0
-  name "ball(3)"
+Wall {
+  translation -0.27 1.24 0
+  size 0.1 3 0.5
 }
-Ball {
-  translation 0 0 0.45
-  rotation 0 1 0 0
-  name "ball(2)"
+Wall {
+  translation 1.29 -0.18 0.34
+  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
+  name "wall(4)"
+  size 0.1 3 2.9
+}
+E-puck {
+  translation 0 0 0.39
+  controller "Supervisor"
+  supervisor TRUE
+}
+Pole {
+  translation -0.16 -0.4 0
 }
 Robot {
   translation -0.01 0.23 0.405
@@ -308,30 +316,4 @@ Robot {
     mass 0.05
   }
   controller "crazyflie_controller"
-}
-Ball {
-  translation 0 2.56 0.45
-  rotation 0 1 0 0
-}
-Ball {
-  translation 2.56 2.56 0.45
-  rotation 0 1 0 0
-  name "ball(1)"
-}
-Wall {
-  translation -0.27 1.24 0
-  size 0.1 3 0.5
-}
-Wall {
-  translation 1.29 -0.18 0.34
-  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
-  name "wall(4)"
-  size 0.1 3 2.9
-}
-Laptop {
-  translation -0.51 1.24 0.5
-  rotation 0 0 1 3.14159
-}
-Pole {
-  translation -0.16 -0.4 0
 }

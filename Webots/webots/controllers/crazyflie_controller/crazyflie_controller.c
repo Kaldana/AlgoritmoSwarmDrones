@@ -12,7 +12,7 @@
  * @file crazyflie_controller.c
  * Controls the crazyflie motors in webots
  */
-// PRUEBA
+
 #include <math.h>
 #include <stdio.h>
 
@@ -27,37 +27,6 @@
 
 #include "../../../controllers/pid_controller.h"
 
-// PUNTO A LLEGAR  (2.56,2.56,2.00) MAXIMOS
-float V0x = 2.56; //X
-float V0y = 2.56; //Y
-float V0z = 0.7;  //Z
-// PARAMETROS PID X
- 
-float ukx = 0; float ekx = 0; float edx = 0; 
-float Ekx = 0; float ek_1x=0; float Ek_1x=0;
-float kpx = 0.5; float kix = 0; float kdx =0;
-float deltax = 1/1000;
-float errorx;
-
-// PARAMETROS PID Y
-
-float uky = 0; float eky = 0; float edy = 0; 
-float Eky = 0; float ek_1y=0; float Ek_1y=0;
-float kpy = 0.25; float kiy = 0; float kdy =0;
-float deltay = 1/1000;
-float errory;
-
-// PARAMETROS PID Z
-
-float ukz = 0; float ekz = 0; float edz = 0; 
-float Ekz = 0; float ek_1z=0; float Ek_1z=0;
-float kpz = 0.25; float kiz = 0; float kdz =0;
-float deltaz = 1/1000;
-float errorz;
-
-float xref = 0;
-float yref = 0;
-float zref = 0;
 int main(int argc, char **argv) {
   wb_robot_init();
 
@@ -122,7 +91,7 @@ int main(int argc, char **argv) {
   gainsPID.ki_z = 50;
   gainsPID.kd_z = 5;
   init_pid_attitude_fixed_height_controller();
-  desiredState.altitude = 1.0;
+
   // Initialize struct for motor power
   MotorPower_t motorPower;
 
@@ -134,18 +103,9 @@ int main(int argc, char **argv) {
 
     // Get measurements
     actualState.roll = wb_inertial_unit_get_roll_pitch_yaw(imu)[0];
-   // printf("roll value is %f\n",actualState.roll);
     actualState.pitch = wb_inertial_unit_get_roll_pitch_yaw(imu)[1];
-   // printf("pitch value is %f\n",actualState.pitch);
     actualState.yaw_rate = wb_gyro_get_values(gyro)[2];
-   // printf("yaw value is %f\n",actualState.yaw_rate);
-    xref = wb_gps_get_values(gps)[0];
-    printf("x value is %f\n",xref);
-    yref = wb_gps_get_values(gps)[1];
-    printf("y value is %f\n",yref);
     actualState.altitude = wb_gps_get_values(gps)[2];
-    zref = actualState.altitude;
-    printf("z value is %f\n",actualState.altitude);
     double xGlobal= wb_gps_get_values(gps)[0];
     double vxGlobal = (xGlobal - pastXGlobal)/dt;
     double yGlobal = wb_gps_get_values(gps)[1];
@@ -164,14 +124,13 @@ int main(int argc, char **argv) {
     desiredState.vx = 0;
     desiredState.vy = 0;
     desiredState.yaw_rate = 0;
-    //desiredState.altitude = 1.0;
+    desiredState.altitude = 1.0;
 
     double forwardDesired = 0;
     double sidewaysDesired = 0;
     double yawDesired = 0;
-
+    printf("%f",motorPower.m1);
     // Control altitude
-    
     int key = wb_keyboard_get_key();
     while (key > 0) {
       switch (key) {
@@ -188,109 +147,14 @@ int main(int argc, char **argv) {
           sidewaysDesired = + 0.2;
           break;
         case 'Q':
-          desiredState.altitude = desiredState.altitude + 0.01;
-          break;
-        case 'E':
-          desiredState.altitude = desiredState.altitude - 0.01;
-          break;
-        case 'R':
           yawDesired = 0.5;
           break;
-        case 'T':
+        case 'E':
           yawDesired = - 0.5;
           break;
         }
       key = wb_keyboard_get_key();
     }
-    
-    
-    
-    
-    
-    // SEGUIR COORDENADAS  PROBANDO CON (1.28,1.28,1.5)--------------
- // y
- eky = V0y - yref;
- errory = fabs(eky);
- printf("errory is %f\n",errory);
-//if (error > 0.01){   
-    eky = V0y - yref;
-    edy = eky - ek_1y;
-    Eky = Ek_1x + eky;
-    uky = kpy*eky+kiy*Eky*0.001*+((kdy*edy)/0.001);
-    ek_1y = eky;
-    Ek_1y = Eky;
-    
- 
- if (uky > 0.5){
-   uky = 0.5;
- }
- 
-  if (uky < -0.5){
-   uky = -0.5;
- }
-
-
- sidewaysDesired = sidewaysDesired + uky;
- //}
- 
- // y
- 
-  ekx = V0x - xref;
- errorx = fabs(ekx);
- printf("errorx is %f\n",errorx);
-//if (error > 0.01){   
-    ekx = V0x - xref;
-    edx = eky - ek_1y;
-    Ekx = Ek_1y + eky;
-    ukx = kpx*ekx+kix*Ekx*0.001*+((kdx*edx)/0.001);
-    ek_1x = ekx;
-    Ek_1x = Ekx;
-    
- 
- if (ukx > 0.5){
-   uky = 0.5;
- }
- 
-  if (ukx < -0.5){
-   ukx = -0.5;
- }
-
-
- forwardDesired = forwardDesired + ukx;
- //}
- 
- // z
- 
- 
-  ekz = V0z - zref;
- errorz = fabs(ekz);
- printf("errorz is %f\n",errorz);
-//if (error > 0.01){   
-    ekz = V0z - zref;
-    edz = ekz - ek_1z;
-    Ekz = Ek_1z + ekz;
-    ukz = kpz*ekz+kiz*Ekz*0.001*+((kdz*edz)/0.001);
-    ek_1z = ekz;
-    Ek_1z = Ekz;
-    
- 
- if (ukz >0.005){
-   ukz = 0.005;
- }
- 
-  if (ukz < -0.005){
-   ukz = -0.005;
- }
-
-
-  desiredState.altitude =  desiredState.altitude + ukz;
- //}
- 
-    //----------------------------------------------------------------
-    
-    
-    
-    
     
     // Example how to get sensor data
     // range_front_value = wb_distance_sensor_get_value(range_front));
@@ -310,13 +174,13 @@ int main(int argc, char **argv) {
     desiredState.pitch = forwardDesired;
      pid_attitude_fixed_height_controller(actualState, &desiredState,
     gainsPID, dt, &motorPower);*/
-    
+        
     // Setting motorspeed
     wb_motor_set_velocity(m1_motor, - motorPower.m1);
     wb_motor_set_velocity(m2_motor, motorPower.m2);
     wb_motor_set_velocity(m3_motor, - motorPower.m3);
     wb_motor_set_velocity(m4_motor, motorPower.m4);
-    
+        
     // Save past time for next time step
     past_time = wb_robot_get_time();
     pastXGlobal = xGlobal;
