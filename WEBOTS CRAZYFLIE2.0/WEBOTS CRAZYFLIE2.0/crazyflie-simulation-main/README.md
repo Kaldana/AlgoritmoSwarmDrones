@@ -1,5 +1,3 @@
-# El siguiente Readme le pertenece a Bitcraze.
-
 # crazyflie_simulation
 
 Hi! Welkom to the crazyflie simulation repo. This repo is still at the early stages and still in development so just ask if you are looking for anything in particular.
@@ -100,3 +98,5 @@ The location of the parts
 * Battery height (0,0,0.02) m
 * Pin headers (0, 0.011, 0.014) m
     * Mirrored in the y axis
+
+Este README pertenece al repositorio de knmcguire, obtenido de: https://github.com/bitcraze/crazyflie-simulation
