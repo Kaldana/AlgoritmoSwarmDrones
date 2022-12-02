@@ -9,7 +9,7 @@ import math
 import pickle
 
 "Aca va la funcion de matrices"
-##from funVel import Fmatrix
+from MatrizF import *
 
 TIME_STEP = 64
 # create the Robot instance.
