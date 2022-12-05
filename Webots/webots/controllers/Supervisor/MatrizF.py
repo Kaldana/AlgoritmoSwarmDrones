@@ -12,7 +12,7 @@ def MatrizF(f):
     d2c = math.sqrt((acc**2 + acc**2))
     d3c = math.sqrt((d2c**2 + acc**2))
     ac = 3;
-    d2t = math.sqrt(ac**2 - (ac/2)**2))
+    d2t = math.sqrt(ac**2 - (ac/2)**2)
     dpbc = math.sqrt(d2t**2 + ac**2)
     dbb = math.sqrt((ac/2)**2 + ac**2)
     dbs = math.sqrt(ac**2 + ac**2)
@@ -38,8 +38,8 @@ def MatrizF(f):
                         [dpbc, dbb,  dbb,  ac,   d2t,  ac/2,  ac/2, 0]]);
 	
 	
-	MM = [cubo, pristri]
+    MM = [cubo, pristri]
 	
-	return MM[f]
+    return MM[f]
 
 

@@ -58,10 +58,10 @@ for a in range(0,N):
     sizeR0 = TamanoVec[0] - 4*r
     sizeR1 = TamanoVec[1] - 4*r
     sizeR2 = TamanoVec[2] - 4*r
-    X[0,a] = random.random()*sizeR0 - sizeR0/2 - 2*r
-    X[1,a] = random.random()*sizeR1 - sizeR1/2 - 2*r
-    X[2,a] = random.random()*sizeR1 - sizeR1/2 - 2*r 
-print("X",X)
+    X[0,a] = random.uniform(-1.4, 1.4)
+    X[1,a] = random.uniform(-1.4, 1.4)
+    X[2,a] = random.uniform(-1.4, 1.4)
+#print("X",X)
 
 # REVISAR POSICIONES
 
@@ -88,7 +88,7 @@ Xi = X
 
 # ASIGNACION DE POSICIONES REVISADAS
 for b in range(0, N):
-    posAgentes[b].setSFVec3f([X[0,b], -6.39203e-05, X[1,b]])
+    posAgentes[b].setSFVec3f([X[0,b], X[1,b],0.405])
 
 # POSICIONES ACTUALES
 posActuales = np.zeros([3,N])
@@ -99,12 +99,12 @@ V = np.empty([3,N])
 
 # MATRIZ DE FORMACION
 d = MatrizF(1)
-print(d)
+#print(d)
 
 # Main loop:
 cambio = 0						# variable para cambio de control 
 while supervisor.step(TIME_STEP) != -1:
-    print("cambio",cambio)
+    #print("cambio",cambio)
 	
 	# Se obtienen posiciones actuales
     for c in range(0,N):
@@ -128,11 +128,11 @@ while supervisor.step(TIME_STEP) != -1:
                 w = 0
             else:
                 if(cambio == 0): 										# inicio: acercar a los agentes sin chocar
-                    print("collision avoidance")
+                    #print("collision avoidance")
                     w = (mdist - (2*(r+0.05)))/(mdist - (r+0.05))**2 	# collision avoidance
                 else:
                 # collision avoidance & formation control
-                    print("formacion")
+                    #print("formacion")
                     w = (4*(mdist - dij)*(mdist - r) - 2*(mdist - dij)**2)/(mdist*(mdist - r)**2)
                 
             # Tensión de aristas entre agentes 
@@ -153,7 +153,7 @@ while supervisor.step(TIME_STEP) != -1:
         nV2 = V[0][m]**2 + V[1][m]**2 + V[2][m]**2
         normV2 = normV2 + nV2
     normV = math.sqrt(normV2)
-    print(normV)
+    #print(normV)
     
     if(normV < 0.5):
         cambio = cambio + 1
