@@ -37,8 +37,12 @@ def MatrizF(f):
                         [dbs,  dbs,  ac,   dbb,  ac,   ac,    0,    ac/2],
                         [dpbc, dbb,  dbb,  ac,   d2t,  ac/2,  ac/2, 0]]);
 	
-	
-    MM = [cubo, pristri]
+    cuadro = np.array([[0,   acc, acc,  d2c],
+                       [acc, 0,   d2c,  acc],
+                       [acc, d2c, 0,    acc],
+                       [d2c, acc, acc,  0]]);
+    
+    MM = [cubo, pristri,cuadro]
 	
     return MM[f]
 

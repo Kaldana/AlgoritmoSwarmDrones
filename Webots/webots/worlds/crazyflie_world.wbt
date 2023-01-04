@@ -13,8 +13,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.2691810075880303 -0.09738985542042963 -0.9581528068189754 3.9228919311521326
-  position 3.7211061549605176 -4.267418226853319 3.930847655212246
+  orientation 0.008742246816147214 0.9990884234926087 -0.04178391034428571 0.41286577126620544
+  position -7.9043228013282825 0.12482397028879999 3.911777388881901
 }
 TexturedBackground {
 }
@@ -44,7 +44,8 @@ Pole {
   name "pole(5)"
 }
 ComputerMouse {
-  translation -2.01 -0.25 0.5
+  translation -2.01 -0.2515273180460739 0.499960760000095
+  rotation -1 2.5754292324329942e-11 1.2996292362328094e-11 3.673205145072626e-06
 }
 Table {
   translation -1.87 -0.02 0
@@ -90,8 +91,15 @@ DEF Plataforma Wall {
   name "wall(4)"
   size 0.05 3 3
 }
+DEF Plataforma Wall {
+  translation 0.04 -1.51 0
+  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
+  name "wall(6)"
+  size 0.05 3 3
+}
 DEF Agente7 Robot {
-  translation 0 -0.8 0.405
+  translation 0.2 0.5 0.408
+  rotation 0.0006634010213244347 -0.015571403481687672 0.9998785382698717 0.0851352526286001
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -229,6 +237,7 @@ DEF Agente7 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 1 5.475598585057144
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -256,6 +265,7 @@ DEF Agente7 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 1 4.519044953551841
         children [
           Shape {
             appearance USE plastic
@@ -280,6 +290,7 @@ DEF Agente7 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 -1 0.2644723659597748
         children [
           Shape {
             appearance USE plastic
@@ -304,6 +315,7 @@ DEF Agente7 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 -1 0.8296639238736543
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -326,10 +338,11 @@ DEF Agente7 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py"
 }
 DEF Agente6 Robot {
-  translation 0 -0.5 0.405
+  translation 0.2 0.3 0.408
+  rotation 0.9938656377127533 -0.00026812672963891823 -0.11059395228437707 0.0048165775103962225
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -467,6 +480,7 @@ DEF Agente6 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 1 6.184642326218539
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -494,6 +508,7 @@ DEF Agente6 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 1 2.457203906588943
         children [
           Shape {
             appearance USE plastic
@@ -518,6 +533,7 @@ DEF Agente6 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 -1 5.841018744683068
         children [
           Shape {
             appearance USE plastic
@@ -542,6 +558,7 @@ DEF Agente6 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 -1 5.686966837965872
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -564,10 +581,11 @@ DEF Agente6 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py6"
 }
 DEF Agente5 Robot {
-  translation 0 -0.2 0.405
+  translation 0.2 0.1 0.408
+  rotation 0.0008300218020261452 0.000760156555397707 0.9999993666127092 -2.97481339914881
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -705,6 +723,7 @@ DEF Agente5 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 -1 1.7970740286216371
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -732,6 +751,7 @@ DEF Agente5 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 4.918156333932842
         children [
           Shape {
             appearance USE plastic
@@ -756,6 +776,7 @@ DEF Agente5 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 -1 3.428554938810663
         children [
           Shape {
             appearance USE plastic
@@ -780,6 +801,7 @@ DEF Agente5 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 0.9999999999999999 2.3709086952366354
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -802,10 +824,11 @@ DEF Agente5 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py5"
 }
 DEF Agente4 Robot {
-  translation 0 0.1 0.405
+  translation 0.2 -0.1 0.408
+  rotation 0.8381079725858669 0.5450914041019963 -0.021222334040394548 3.0780194450805025
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -943,6 +966,7 @@ DEF Agente4 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 -0.9999999999999999 0.9704242953849839
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -970,6 +994,7 @@ DEF Agente4 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 2.639946863820189
         children [
           Shape {
             appearance USE plastic
@@ -994,6 +1019,7 @@ DEF Agente4 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 -1 2.003929911555102
         children [
           Shape {
             appearance USE plastic
@@ -1018,6 +1044,7 @@ DEF Agente4 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 -1 3.477297436887629
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -1040,10 +1067,11 @@ DEF Agente4 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py4"
 }
 DEF Agente3 Robot {
-  translation -0.5 0.1 0.405
+  translation -0.1 0.5 0.408
+  rotation -0.00540571791554383 0.0046129107788865755 0.9999747493151833 0.158596788850695
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -1181,6 +1209,7 @@ DEF Agente3 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 1 5.856903107145717
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -1208,6 +1237,7 @@ DEF Agente3 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 0.8009377756862653
         children [
           Shape {
             appearance USE plastic
@@ -1232,6 +1262,7 @@ DEF Agente3 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 0.9999999999999999 3.88621722938828
         children [
           Shape {
             appearance USE plastic
@@ -1256,6 +1287,7 @@ DEF Agente3 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 -0.9999999999999999 1.5940262555630802
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -1278,10 +1310,11 @@ DEF Agente3 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py3"
 }
 DEF Agente2 Robot {
-  translation -0.5 -0.2 0.405
+  translation -0.1 0.3 0.408
+  rotation 0.0047750375298277895 -6.457538138113574e-05 -0.9999885973582944 0.028725122992286984
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -1419,6 +1452,7 @@ DEF Agente2 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 -1 1.5984737215362665
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -1446,6 +1480,7 @@ DEF Agente2 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 0.10228389190233526
         children [
           Shape {
             appearance USE plastic
@@ -1470,6 +1505,7 @@ DEF Agente2 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 1 2.521516080156376
         children [
           Shape {
             appearance USE plastic
@@ -1494,6 +1530,7 @@ DEF Agente2 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 -1 2.5471064517258535
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -1516,10 +1553,11 @@ DEF Agente2 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py2"
 }
 DEF Agente1 Robot {
-  translation -0.5 -0.8 0.405
+  translation -0.1 0.1 0.408
+  rotation 0.00013541315322646892 -0.0010711318176561348 0.9999994171697839 0.25169410868726094
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -1657,6 +1695,7 @@ DEF Agente1 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 1 1.987267290067252
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -1684,6 +1723,7 @@ DEF Agente1 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 3.9332799294441405
         children [
           Shape {
             appearance USE plastic
@@ -1708,6 +1748,7 @@ DEF Agente1 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 1 4.231749558299356
         children [
           Shape {
             appearance USE plastic
@@ -1732,6 +1773,7 @@ DEF Agente1 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 1 3.2386533795935573
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -1754,10 +1796,11 @@ DEF Agente1 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py1"
 }
 DEF Agente0 Robot {
-  translation -0.5 -0.5 0.405
+  translation -0.1 -0.1 0.408
+  rotation -0.24435749397475506 0.969682152371384 0.0024369059845704903 3.128468234645634
   children [
     DEF Multiranger Transform {
       translation 0 0 0.02
@@ -1895,6 +1938,7 @@ DEF Agente0 Robot {
       }
       slowHelix Solid {
         translation 0.031 -0.031 0.008
+        rotation 0 0 0.9999999999999999 0.9917227204774602
         children [
           Shape {
             appearance DEF plastic PBRAppearance {
@@ -1922,6 +1966,7 @@ DEF Agente0 Robot {
       }
       slowHelix Solid {
         translation -0.031 -0.031 0.008
+        rotation 0 0 -1 0.0757003801962726
         children [
           Shape {
             appearance USE plastic
@@ -1946,6 +1991,7 @@ DEF Agente0 Robot {
       }
       slowHelix Solid {
         translation -0.031 0.031 0.008
+        rotation 0 0 1 4.1797765722768565
         children [
           Shape {
             appearance USE plastic
@@ -1970,6 +2016,7 @@ DEF Agente0 Robot {
       }
       slowHelix DEF prop Solid {
         translation 0.031 0.031 0.008
+        rotation 0 0 0.9999999999999999 0.8720980604485576
         children [
           DEF prop Shape {
             appearance USE plastic
@@ -1983,7 +2030,7 @@ DEF Agente0 Robot {
       }
     }
   ]
-  name "Crazyflie"
+  name "Crazyflie(8)"
   boundingObject Cylinder {
     height 0.03
     radius 0.05
@@ -1992,11 +2039,11 @@ DEF Agente0 Robot {
     density -1
     mass 0.05
   }
-  controller "<none>"
+  controller "crazyflie_controller_py0"
 }
 Laptop {
-  translation -1.86 0.13 0.5
-  rotation 0 0 1 3.14159
+  translation -1.8599999906411167 0.13006702924715335 0.4988661270928936
+  rotation 0.0012734722188246232 1.1732919659454138e-05 0.9999991890650944 3.1415870575692244
 }
 Pole {
   translation -1.65 -1.67 0

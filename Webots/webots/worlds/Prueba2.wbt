@@ -1,0 +1,1062 @@
+#VRML_SIM R2022b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/computers/protos/ComputerMouse.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/computers/protos/Laptop.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/traffic/protos/Pole.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/appearances/protos/Roughcast.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 1.9272688516664535e-06 1.9272743015345375e-06 7.497428165378953
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 3 3
+}
+Pole {
+  translation 1.67 1.65 0
+  name "pole(4)"
+}
+Pole {
+  translation -1.67 1.65 0
+  name "pole(3)"
+}
+Pole {
+  translation 1.67 -1.67 0
+  name "pole(2)"
+}
+Pole {
+  translation 0 -1.67 0
+  name "pole(1)"
+}
+Pole {
+  translation 0 1.65 0
+  name "pole(5)"
+}
+ComputerMouse {
+  translation -2.01 -0.25 0.5
+}
+Table {
+  translation -1.87 -0.02 0
+  name "table(1)"
+  size 0.5 1 0.5
+}
+Wall {
+  translation -4.07847e-08 1.54 0
+  rotation 0 0 -0.9999999999999999 1.5707953071795862
+  name "wall(3)"
+  size 0.1 3.2 0.5
+}
+Wall {
+  translation 1.55 0 0
+  name "wall(2)"
+  size 0.1 3 0.5
+}
+Wall {
+  translation 5.09792e-08 -1.55 0
+  rotation 0 0 -0.9999999999999999 1.5707953071795862
+  name "wall(1)"
+  size 0.1 3.2 0.5
+}
+Wall {
+  translation -1.55 0 0
+  size 0.1 3 0.5
+}
+Wall {
+  translation 0.0399995 -2.51 -0.010002
+  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
+  name "wall(5)"
+  size 0.02 5 5
+  appearance Roughcast {
+    colorOverride 0.462745 0.513726 0.513726
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+DEF Plataforma Wall {
+  translation 0.04 -1.51 0.3661
+  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
+  name "wall(4)"
+  size 0.05 3 3
+}
+DEF Plataforma Wall {
+  translation 0.04 -1.51 0
+  rotation 0.5773509358560258 0.577349935856137 0.577349935856137 -2.094395307179586
+  name "wall(6)"
+  size 0.05 3 3
+}
+DEF Agente3 Robot {
+  translation -0.5 0.1 0.405
+  children [
+    DEF Multiranger Transform {
+      translation 0 0 0.02
+      children [
+        DistanceSensor {
+          rotation 0 0 1 -1.57
+          name "range_right"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 3.14
+          name "range_back"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 1.57
+          name "range_left"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          name "range_front"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+      ]
+    }
+    Camera {
+      translation 0.03 0 0.01
+      fieldOfView 0.87
+      width 324
+      height 324
+    }
+    Solid {
+      translation 0 0 -0.015
+      children [
+        DEF battery Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.6
+            metalness 0.1
+            emissiveIntensity 0
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery.stl"
+            ]
+          }
+        }
+        DEF battery_holder Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0.2
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery_holder.stl"
+            ]
+          }
+        }
+        DEF motors Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motors.stl"
+            ]
+          }
+        }
+        DEF motormounts Shape {
+          appearance PBRAppearance {
+            transparency 0.1
+            metalness 0.2
+            emissiveColor 0.5 0.5 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motormounts.stl"
+            ]
+          }
+        }
+        DEF pinheader Shape {
+          appearance DEF metal PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            metalness 0.8
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/2_pinheaders.stl"
+            ]
+          }
+        }
+        DEF body Shape {
+          appearance DEF PCB PBRAppearance {
+            baseColor 0 0 0
+            roughness 0.3
+            metalness 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/cf_body.stl"
+            ]
+          }
+        }
+      ]
+      name "body"
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    InertialUnit {
+    }
+    DEF m1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 -0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m1_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation 0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance DEF plastic PBRAppearance {
+              baseColor 0 0 0
+              metalness 0.3
+            }
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 -0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m2_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m3_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m4_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix DEF prop Solid {
+        translation 0.031 0.031 0.008
+        children [
+          DEF prop Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+  name "Crazyflie(3)"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.05
+  }
+  physics Physics {
+    density -1
+    mass 0.05
+  }
+  controller "crazyflie_controller_py3"
+}
+DEF Agente2 Robot {
+  translation -0.5 -0.2 0.405
+  children [
+    DEF Multiranger Transform {
+      translation 0 0 0.02
+      children [
+        DistanceSensor {
+          rotation 0 0 1 -1.57
+          name "range_right"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 3.14
+          name "range_back"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 1.57
+          name "range_left"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          name "range_front"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+      ]
+    }
+    Camera {
+      translation 0.03 0 0.01
+      fieldOfView 0.87
+      width 324
+      height 324
+    }
+    Solid {
+      translation 0 0 -0.015
+      children [
+        DEF battery Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.6
+            metalness 0.1
+            emissiveIntensity 0
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery.stl"
+            ]
+          }
+        }
+        DEF battery_holder Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0.2
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery_holder.stl"
+            ]
+          }
+        }
+        DEF motors Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motors.stl"
+            ]
+          }
+        }
+        DEF motormounts Shape {
+          appearance PBRAppearance {
+            transparency 0.1
+            metalness 0.2
+            emissiveColor 0.5 0.5 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motormounts.stl"
+            ]
+          }
+        }
+        DEF pinheader Shape {
+          appearance DEF metal PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            metalness 0.8
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/2_pinheaders.stl"
+            ]
+          }
+        }
+        DEF body Shape {
+          appearance DEF PCB PBRAppearance {
+            baseColor 0 0 0
+            roughness 0.3
+            metalness 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/cf_body.stl"
+            ]
+          }
+        }
+      ]
+      name "body"
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    InertialUnit {
+    }
+    DEF m1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 -0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m1_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation 0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance DEF plastic PBRAppearance {
+              baseColor 0 0 0
+              metalness 0.3
+            }
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 -0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m2_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m3_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m4_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix DEF prop Solid {
+        translation 0.031 0.031 0.008
+        children [
+          DEF prop Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+  name "Crazyflie(2)"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.05
+  }
+  physics Physics {
+    density -1
+    mass 0.05
+  }
+  controller "crazyflie_controller_py2"
+}
+DEF Agente1 Robot {
+  translation -0.5 -0.8 0.405
+  children [
+    DEF Multiranger Transform {
+      translation 0 0 0.02
+      children [
+        DistanceSensor {
+          rotation 0 0 1 -1.57
+          name "range_right"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 3.14
+          name "range_back"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 1.57
+          name "range_left"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          name "range_front"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+      ]
+    }
+    Camera {
+      translation 0.03 0 0.01
+      fieldOfView 0.87
+      width 324
+      height 324
+    }
+    Solid {
+      translation 0 0 -0.015
+      children [
+        DEF battery Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.6
+            metalness 0.1
+            emissiveIntensity 0
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery.stl"
+            ]
+          }
+        }
+        DEF battery_holder Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0.2
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery_holder.stl"
+            ]
+          }
+        }
+        DEF motors Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motors.stl"
+            ]
+          }
+        }
+        DEF motormounts Shape {
+          appearance PBRAppearance {
+            transparency 0.1
+            metalness 0.2
+            emissiveColor 0.5 0.5 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motormounts.stl"
+            ]
+          }
+        }
+        DEF pinheader Shape {
+          appearance DEF metal PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            metalness 0.8
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/2_pinheaders.stl"
+            ]
+          }
+        }
+        DEF body Shape {
+          appearance DEF PCB PBRAppearance {
+            baseColor 0 0 0
+            roughness 0.3
+            metalness 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/cf_body.stl"
+            ]
+          }
+        }
+      ]
+      name "body"
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    InertialUnit {
+    }
+    DEF m1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 -0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m1_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation 0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance DEF plastic PBRAppearance {
+              baseColor 0 0 0
+              metalness 0.3
+            }
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 -0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m2_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m3_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m4_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix DEF prop Solid {
+        translation 0.031 0.031 0.008
+        children [
+          DEF prop Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+  name "Crazyflie(1)"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.05
+  }
+  physics Physics {
+    density -1
+    mass 0.05
+  }
+  controller "crazyflie_controller_py1"
+}
+DEF Agente0 Robot {
+  translation -0.5 -0.5 0.405
+  children [
+    DEF Multiranger Transform {
+      translation 0 0 0.02
+      children [
+        DistanceSensor {
+          rotation 0 0 1 -1.57
+          name "range_right"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 3.14
+          name "range_back"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          rotation 0 0 1 1.57
+          name "range_left"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+        DistanceSensor {
+          name "range_front"
+          lookupTable [
+            0 0 0
+            2 2000 0
+          ]
+        }
+      ]
+    }
+    Camera {
+      translation 0.03 0 0.01
+      fieldOfView 0.87
+      width 324
+      height 324
+    }
+    Solid {
+      translation 0 0 -0.015
+      children [
+        DEF battery Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.6
+            metalness 0.1
+            emissiveIntensity 0
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery.stl"
+            ]
+          }
+        }
+        DEF battery_holder Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0.2
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/battery_holder.stl"
+            ]
+          }
+        }
+        DEF motors Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motors.stl"
+            ]
+          }
+        }
+        DEF motormounts Shape {
+          appearance PBRAppearance {
+            transparency 0.1
+            metalness 0.2
+            emissiveColor 0.5 0.5 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/4_motormounts.stl"
+            ]
+          }
+        }
+        DEF pinheader Shape {
+          appearance DEF metal PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            metalness 0.8
+            emissiveColor 0.4 0.4 0.4
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/2_pinheaders.stl"
+            ]
+          }
+        }
+        DEF body Shape {
+          appearance DEF PCB PBRAppearance {
+            baseColor 0 0 0
+            roughness 0.3
+            metalness 0.5
+          }
+          geometry Mesh {
+            url [
+              "../../meshes/cf_body.stl"
+            ]
+          }
+        }
+      ]
+      name "body"
+    }
+    GPS {
+    }
+    Gyro {
+    }
+    InertialUnit {
+    }
+    DEF m1 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 -0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m1_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation 0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance DEF plastic PBRAppearance {
+              baseColor 0 0 0
+              metalness 0.3
+            }
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m2 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 -0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m2_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 -0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m3 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.031 0.031 0.008
+      thrustConstants -4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m3_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix Solid {
+        translation -0.031 0.031 0.008
+        children [
+          Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/ccw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    DEF m4 Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.031 0.031 0.008
+      thrustConstants 4e-05 0
+      torqueConstants 2.4e-06 0
+      device RotationalMotor {
+        name "m4_motor"
+        maxVelocity 600
+        maxTorque 30
+      }
+      slowHelix DEF prop Solid {
+        translation 0.031 0.031 0.008
+        children [
+          DEF prop Shape {
+            appearance USE plastic
+            geometry Mesh {
+              url [
+                "../../meshes/cw_prop.stl"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+  name "Crazyflie(8)"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.05
+  }
+  physics Physics {
+    density -1
+    mass 0.05
+  }
+  controller "crazyflie_controller_py0"
+}
+Laptop {
+  translation -1.86 0.13 0.5
+  rotation 0 0 1 3.14159
+}
+Pole {
+  translation -1.65 -1.67 0
+}
+DEF Supervisor Robot {
+  translation 0 0 0.69
+  controller "Supervisor2D"
+  supervisor TRUE
+}

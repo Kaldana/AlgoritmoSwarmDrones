@@ -26,7 +26,7 @@ TamanoVec = Tamano.getSFVec3f()
 N = 8
 r = 0.6
 R = 1
-MAX_SPEED = 5
+MAX_SPEED = 2.0
 agente0 = supervisor.getFromDef("Agente0")
 agente1 = supervisor.getFromDef("Agente1")
 agente2 = supervisor.getFromDef("Agente2")
@@ -55,12 +55,12 @@ X = np.empty ([3,N])
 # POSICIONES ALEATORIAS PARA DRONES
 
 for a in range(0,N):
-    sizeR0 = TamanoVec[0] - 4*r
-    sizeR1 = TamanoVec[1] - 4*r
-    sizeR2 = TamanoVec[2] - 4*r
-    X[0,a] = random.uniform(-1.4, 1.4)
-    X[1,a] = random.uniform(-1.4, 1.4)
-    X[2,a] = random.uniform(-1.4, 1.4)
+    sizeR0 = TamanoVec[0] 
+    sizeR1 = TamanoVec[1] 
+    sizeR2 = TamanoVec[2] 
+    X[0,a] = random.uniform(-1, 1)
+    X[1,a] = random.uniform(-1, 1)
+    X[2,a] = random.uniform(-1, 1)
 #print("X",X)
 
 # REVISAR POSICIONES
@@ -88,8 +88,8 @@ Xi = X
 
 # ASIGNACION DE POSICIONES REVISADAS
 for b in range(0, N):
-    posAgentes[b].setSFVec3f([X[0,b], X[1,b],0.405])
-
+    posAgentes[b].setSFVec3f([X[0,b], X[1,b],0.405+b*0.01])
+    posAgentes[0].setSFVec3f([0,0,0.405+b*0.01])
 # POSICIONES ACTUALES
 posActuales = np.zeros([3,N])
 posNuevas = np.zeros([3,N])
@@ -145,24 +145,25 @@ while supervisor.step(TIME_STEP) != -1:
         V[0][g] = 2*(E0)*TIME_STEP/1000 
         V[1][g] = 2*(E1)*TIME_STEP/1000
         V[2][g] = 2*(E2)*TIME_STEP/1000
-    
+        
 	# Al llegar muy cerca de la posición deseada realizar cambio de control
 
     normV2 = 0
     for m in range(0,N):
         nV2 = V[0][m]**2 + V[1][m]**2 + V[2][m]**2
         normV2 = normV2 + nV2
+    
     normV = math.sqrt(normV2)
     #print(normV)
+    V = V/normV * MAX_SPEED
     
     if(normV < 0.5):
         cambio = cambio + 1
-
     # Guardar datos necesarios para asignar velocidad a cada agente  
-##    with open('D:\Kenneth\Documents\UVG\S9\DisenoeInnovacion\Tesis\Webots\prueba/Datos1.pickle','wb') as f:
-##        pickle.dump(posActuales, f)
-##    with open('D:\Kenneth\Documents\UVG\S9\DisenoeInnovacion\Tesis\Webots\prueba/Datos2.pickle','wb') as f:
-##        pickle.dump(posNuevas, f)
-##    with open('D:\Kenneth\Documents\UVG\S9\DisenoeInnovacion\Tesis\Webots\prueba/Datos3.pickle','wb') as f:
-##        pickle.dump(V, f)
-##    pass
+    with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos1.pickle','wb') as f:
+        pickle.dump(posActuales, f)
+    with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos2.pickle','wb') as f:
+        pickle.dump(posNuevas, f)
+    with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos3.pickle','wb') as f:
+        pickle.dump(V, f)
+    pass

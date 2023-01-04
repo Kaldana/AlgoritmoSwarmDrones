@@ -12,8 +12,8 @@
 % =========================================================================
 
 %% Inicialización del mundo
-gridsize = 15;
-initsize = 10;
+gridsize = 5.2;
+initsize = 5;
 N = 8; % Definir la cantidad de agentes
 dt = 0.01; % Tiempo de muestreo
 T = 5; % Tiempo máximo de simulación
@@ -24,7 +24,6 @@ Xi = X; % Vector de posición de los agentes
 
 % Inicialización de la velocidad de los agentes
 V = zeros(3,N);
-
 %% Grafico de posición inicial de los agentes
 %  Se utiliza distinción de color por agentes
 %    Rojo:    agente 1
@@ -41,9 +40,11 @@ color = [255 0 0;
 % Se define la representación gráfica como gráfico de dispersión en 3D
 agents = scatter3(X(1,:),X(2,:),X(3,:),[],color,'filled');
 grid minor;
-xlim([-gridsize, gridsize]);
-ylim([-gridsize, gridsize]);
-zlim([-gridsize, gridsize]);
+maximo = max(X);
+minimo = min(X);
+xlim([-min(minimo), max(maximo)]);
+ylim([-min(minimo), max(maximo)]);
+zlim([-min(minimo), max(maximo)]);
 
 %% Inicialización de simulación
 t = 0;
@@ -84,6 +85,7 @@ while(t < T)
     agents.YData = X(2,:);
     agents.ZData = X(3,:);
     pause(dt);
+    pause(0.05)
     t = t + dt;
     ciclos = ciclos + 1;
 end

@@ -22,15 +22,16 @@ from controller import Gyro
 from controller import Keyboard
 from controller import Camera
 from controller import DistanceSensor
-
+import pickle
+import time
 from math import cos, sin
 
 import sys
-sys.path.append('../../../controllers/pid_controller.py')
+sys.path.append('../../../controllers/')
 from  pid_controller import init_pid_attitude_fixed_height_controller, pid_velocity_fixed_height_controller
 from pid_controller import MotorPower_t, ActualState_t, GainsPID_t, DesiredState_t
 robot = Robot()
-
+    
 timestep = int(robot.getBasicTimeStep())
 
 ## Initialize motors
@@ -98,6 +99,19 @@ print('Take off!')
 
 # Main loop:
 while robot.step(timestep) != -1:
+    # with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos1.pickle','rb') as f:
+       # posActuales = pickle.load(f)
+    # with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos2.pickle','rb') as f:
+        # posNuevas = pickle.load(f)
+    with open('D:/Kenneth/Documents/UVG/S9/DisenoeInnovacion/Tesis/Webots/webots/controllers/Datos3.pickle','rb') as f:
+        V = pickle.load(f)
+    pass
+    ejex = V[0]
+    ejey = V[1]
+    ejez = V[2]
+
+    # posFinal = np.asarray([posNuevas[0][argc], posNuevas[1][argc], 0.405])
+    # posAct = np.asarray([posActuales[0, argc], posActuales[1][argc], 0.405])
 
     dt = robot.getTime() - past_time;
 
@@ -125,28 +139,30 @@ while robot.step(timestep) != -1:
     desiredState.vx = 0
     desiredState.vy = 0
     desiredState.yaw_rate = 0
-    desiredState.altitude = 1.0
-
+    # desiredState.altitude = 1.0
+    desiredState.altitude = 0.0
+    if desiredState.altitude == 0:
+        desiredState.altitude = 1.0
     forwardDesired = 0
     sidewaysDesired = 0
     yawDesired = 0
 
-    key = Keyboard().getKey()
-    while key>0:
-        if key == Keyboard.UP:
-            forwardDesired += 0.2
-        elif key == Keyboard.DOWN:
-            forwardDesired -= 0.2
-        elif key == Keyboard.RIGHT:
-            sidewaysDesired -= 0.2
-        elif key == Keyboard.LEFT:
-            sidewaysDesired += 0.2
-        elif key == ord('Q'):
-            yawDesired =  + 0.5
-        elif key == ord('E'):
-            yawDesired = - 0.5
+    # key = Keyboard().getKey()
+    forwardDesired += int(ejex[7])
+    sidewaysDesired += int(ejey[7])
+    desiredState.altitude += int(ejez[7])
+        # if V[2] != 0:
+            # if V[2] < 0:
+                # desiredState.altitude -= V[2]
+            # else: 
+                # desiredState.altitude += V[2]
+            
+        # elif key == ord('Q'):
+            # yawDesired =  + 0.5
+        # elif key == ord('E'):
+            # yawDesired = - 0.5
 
-        key = Keyboard().getKey()
+        # key = Keyboard().getKey()
 
     ## Example how to get sensor data
     ## range_front_value = range_front.getValue();

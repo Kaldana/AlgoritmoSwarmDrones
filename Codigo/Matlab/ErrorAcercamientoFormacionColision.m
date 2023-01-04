@@ -18,7 +18,12 @@ ETotal = zeros(1,cantI);        % energía total de los agentes por simulación
 EI = zeros(1,cantI);            % error individual en cada simulación
 ExitoTotalF = 0;                % cantidad de formaciones 100% exitosas
 Fail = 0;                       % cantidad de formaciones fallidas
-
+Energia50 = 0;
+Energia100 = 0;
+Energia200 = 0;
+Energia300 = 0;
+Enerprom = 0;
+Promedio = 0;
 for I = 1:cantI
     %% Inicialización del mundo
     gridsize = 10;      % tamaño del espacio tridimensional
@@ -96,7 +101,21 @@ for I = 1:cantI
     errorF = ErrorForm(mDistF,MatrizF(Formacion)); % error de formación simulación I
     energiaI = sum(historico.*dt,1);            % energía individual simulación I
     energiaT = sum(energiaI,2);                 % energía total simulación I
-
+    Enerprom = Enerprom + energiaT;
+    Promedio = Enerprom / 100;
+    if energiaT < 50
+        Energia50 = Energia50 + 1;
+    end
+    if energiaT < 100 && energiaT> 50
+        Energia100 = Energia100 + 1;
+    end
+    if energiaT < 200 && energiaT>100
+        Energia200 = Energia200 + 1;
+    end
+    if energiaT>200
+        Energia300 = Energia300 + 1;
+    end
+    
     %% Porcentaje éxito formación
     % Una formación se considera exitosa con un error cuadrático medio 
     % menor a 0.05

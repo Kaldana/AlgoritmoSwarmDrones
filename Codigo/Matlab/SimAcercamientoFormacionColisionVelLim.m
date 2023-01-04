@@ -77,7 +77,7 @@ ylim([-gridsize, gridsize]);
 zlim([-gridsize, gridsize]);
 
 %% Selección matriz y parámetros del sistema
-d = MatrizF(2);    % matriz de formación
+d = MatrizF(1);    % matriz de formación
 r = 1;               % radio agentes
 VelMax = 2;         % velocidad máxima
 

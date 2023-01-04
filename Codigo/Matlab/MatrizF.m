@@ -41,7 +41,7 @@ dbs = ((ac)^2 + (ac)^2)^(1/2); % distancia entre vertices inveriores del triangu
            d3c d2c d2c acc  d2c acc  acc  0];
             
 % Celdas con todas las formaciones posibles
-MM = {dt1,dc1};
+MM = {dc1,dt1};
 
   % Matriz seleccionada
 d = MM{f};
